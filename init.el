@@ -274,8 +274,8 @@ If p is negative, move up, otherwise, move down."
 (require 'htmlize)
 
 (if window-system
-    (require 'color-theme)
-    (color-theme-gnome2))
+    (progn (require 'color-theme)
+	   (color-theme-gnome2)))
 
 ;; Convenient To select from kill ring
 (require 'browse-kill-ring)
