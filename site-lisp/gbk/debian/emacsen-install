@@ -1,0 +1,94 @@
+#! /bin/sh -e
+# /usr/lib/emacsen-common/packages/install/mule-gbk
+
+# Written by Jim Van Zandt <jrv@vanzandt.mv.com>, borrowing heavily
+# from the install scripts for gettext by Santiago Vila
+# <sanvila@ctv.es> and octave by Dirk Eddelbuettel <edd@debian.org>.
+# Modified by Su Yong <ysu@mail.ustc.edu.cn>
+
+set -e
+
+FLAVOR=$1
+VERSION=0.1
+PACKAGE=mule-gbk
+
+if [ "X${FLAVOR}" = "X" ]; then
+    echo Need argument to determin FLAVOR of emacs;
+    exit 1
+fi
+
+if [ "X${PACKAGE}" = "X" ]; then
+    echo Internal error: need package name;
+    exit 1;
+fi
+
+
+if [ ${FLAVOR} != emacs21 ]; then exit 0; fi
+
+
+
+echo install/${PACKAGE}: Handling install for emacsen flavor ${FLAVOR}
+
+
+ELDIR=/usr/share/emacs/site-lisp/${PACKAGE}
+ELCDIR=/usr/share/${FLAVOR}/site-lisp/${PACKAGE}
+
+# Install-info-altdir does not actually exist. 
+# Maybe somebody will write it.
+# if test -x /usr/sbin/install-info-altdir; then
+#     echo install/${PACKAGE}: install Info links for ${FLAVOR}
+#     install-info-altdir --quiet --section "" "" --dirname=${FLAVOR} /usr/info/${PACKAGE}.info.gz
+# fi
+
+
+STARTDIR=/etc/${FLAVOR}/site-start.d
+STARTFILE="${PACKAGE}-init.el";
+
+SITELISP=/usr/share/${FLAVOR}/site-lisp
+
+COMPILE="-batch -q -no-site-file -f batch-byte-compile"
+
+STAMP=${ELCDIR}/compile-stamp
+
+case "${FLAVOR}" in
+	emacs21)
+
+	echo -n "install/${PACKAGE}: Byte-compiling for ${FLAVOR} ..."
+
+    if [ -e ${STAMP} ]; then
+        if [ "${VERSION}" = "`cat ${STAMP}`" ]; then
+            echo " exited. (already compiled)" 
+            exit
+        else
+            rm -f ${STAMP}
+        fi
+    fi
+
+	rm -rf ${ELCDIR}
+    install -m 755 -d ${ELCDIR}
+
+    # Copy the temp .el files (and Makefile or so)
+    # cp ${ELDIR}/* ${ELCDIR}/
+
+    # Byte compile them
+     cd ${ELDIR}
+     ${FLAVOR} ${COMPILE} chinese-gbk.el
+     ${FLAVOR} ${COMPILE} characters-gbk.el
+     ${FLAVOR} ${COMPILE} fontset-gbk.el
+
+
+    mv ${ELDIR}/*.elc ${ELCDIR}/
+	
+#	gzip -9 ${ELCDIR}/CompilationLog
+#    echo ${VERSION} > ${STAMP}
+
+
+	cp ${ELDIR}/${STARTFILE} ${STARTDIR}/40${STARTFILE};
+
+	echo " done."
+	;;
+    *)
+	;;
+esac
+
+exit 0
