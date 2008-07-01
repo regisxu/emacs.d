@@ -1,0 +1,7 @@
+mule-gbk for Debian
+-------------------
+
+This package contains two Emacs-Lisp files to provide GBK support
+for GNU Emacs 21 / MULE 5.0 .
+
+ -- Su Yong <ysu@mail.ustc.edu.cn>, Mon, 15 Oct 2001 17:14:30 +0800
