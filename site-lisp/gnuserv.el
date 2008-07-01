@@ -494,4 +494,3 @@ one."
 (global-set-key "\C-x#" 'server-edit)
 
 (provide 'gnuserv)
-

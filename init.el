@@ -13,8 +13,8 @@
 ;; set key ctrl-z is set mark
 (global-set-key "\C-z" 'set-mark-command)
 
-;; set key M-/ for  hippie-expand
-(global-set-key (kbd "C-.") 'hippie-expand)
+;; set key M-. for  hippie-expand
+(global-set-key (kbd "C-.") 'hippie-expand) 
 
 ;; set key C-x C-b for bs-show
 (global-set-key (kbd "C-x C-b") 'bs-show)
@@ -24,7 +24,6 @@
 (global-set-key (kbd "C-c l") 'org-store-link)
 
 (global-set-key (kbd "C-c C-t") 'toggle-truncate-lines)
-
 
 (global-set-key [S-return] '(lambda ()
 			      (interactive)
@@ -126,6 +125,7 @@ If p is negative, move up, otherwise, move down."
 (mouse-avoidance-mode 'animate)
 
 (setq frame-title-format "%f    size:%I")
+
 (toggle-truncate-lines 1)
 
 ;; auto show image
@@ -205,7 +205,6 @@ If p is negative, move up, otherwise, move down."
 ;(set-keyboard-coding-system 'chinese-iso-8bit)
 ;(set-w32-system-coding-system 'chinese-iso-8bit)
 
-
 ;; Max windows
 ;; (defun w32-maximize-frame ()
 ;;   "Maximize the current frame"
@@ -219,10 +218,8 @@ If p is negative, move up, otherwise, move down."
 ;; load cua-lite for shift select. File .emacs.d/site-lisp/cua-lite.el
 ;; is modified, remove keybind for "C-s, C-a...." some keybind i don't
 ;; like.
-(require 'cua-lite)
-(cua-lite 1)
-
-(set-cursor-color "orange2")
+(if window-system
+    (require 'cua-lite))
 
 ;; load gnuserv
 (autoload 'gnuserv-start "gnuserv-compat"
@@ -232,7 +229,6 @@ If p is negative, move up, otherwise, move down."
 ;; open in one frame
 (setq gnuserv-frame (selected-frame))
 (setenv "GNUSERV_SHOW_EMACS" "1")   
-
 
 ;; load session
 (require 'session)
@@ -265,7 +261,7 @@ If p is negative, move up, otherwise, move down."
 
 
 ;; load game typing
-					;(autoload 'typing-of-emacs "typing" "The Typing Of Emacs, a game." t)
+;(autoload 'typing-of-emacs "typing" "The Typing Of Emacs, a game." t)
 
 ;; accelerate woman
 (setq woman-cache-level 3)
@@ -277,9 +273,9 @@ If p is negative, move up, otherwise, move down."
 ;;load htmlize which convert highlight code to html
 (require 'htmlize)
 
-(require 'color-theme)
-(color-theme-gnome2)
-
+(if window-system
+    (require 'color-theme)
+    (color-theme-gnome2))
 
 ;; Convenient To select from kill ring
 (require 'browse-kill-ring)
@@ -299,7 +295,6 @@ If p is negative, move up, otherwise, move down."
 (setq exec-path (cons "C:/other/erl5.6/bin" exec-path))
 (require 'erlang-start)
 
-
 ;;--------------------configure program environment------------------------------------
 
 (setq hippie-expand-try-functions-list
@@ -316,7 +311,6 @@ If p is negative, move up, otherwise, move down."
         ))
 
 
-
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -325,6 +319,7 @@ If p is negative, move up, otherwise, move down."
  '(c-default-style (quote ((c-mode . "stroustrup") (c++-mode . "stroustrup") (java-mode . "java") (other . "gnu"))))
  '(c-macro-prompt-flag nil)
  '(c-macro-shrink-window-flag t)
+ '(column-number-mode t)
  '(debug-on-error t)
  '(default-input-method "chinese-py-punct")
  '(display-buffer-reuse-frames t)
