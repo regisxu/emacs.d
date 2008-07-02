@@ -205,7 +205,8 @@ If p is negative, move up, otherwise, move down."
 ;; is modified, remove keybind for "C-s, C-a...." some keybind i don't
 ;; like.
 (if window-system
-    (require 'cua-lite))
+    (progn (require 'cua-lite)
+	  (cua-lite 1)))
 
 ;; load gnuserv
 (server-start)
