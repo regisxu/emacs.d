@@ -196,24 +196,10 @@ If p is negative, move up, otherwise, move down."
 
 
 ;;; Language environment
-(set-language-environment "Chinese-GB18030")
-
-;;; Coding system
-;(set-default-coding-systems 'chinese-iso-8bit)
-;(set-buffer-file-coding-system 'chinese-iso-8bit)
-;(set-terminal-coding-system 'chinese-iso-8bit)
-;(set-keyboard-coding-system 'chinese-iso-8bit)
-;(set-w32-system-coding-system 'chinese-iso-8bit)
-
-;; Max windows
-;; (defun w32-maximize-frame ()
-;;   "Maximize the current frame"
-;;   (interactive)
-;;   (w32-send-sys-command 61488))
-;; (w32-maximize-frame)
+(set-language-environment "Chinese-GB")
 
 ;;; Font settings
-(set-default-font "-outline-Courier New-normal-r-normal-normal-18-*-96-96-c-*-iso8859-1")
+(set-default-font "-Adobe-Courier-Medium-R-Normal--20-140-100-100-M-110-ISO8859-1")
 
 ;; load cua-lite for shift select. File .emacs.d/site-lisp/cua-lite.el
 ;; is modified, remove keybind for "C-s, C-a...." some keybind i don't
@@ -222,13 +208,7 @@ If p is negative, move up, otherwise, move down."
     (require 'cua-lite))
 
 ;; load gnuserv
-(autoload 'gnuserv-start "gnuserv-compat"
-  "Allow this Emacs process to be a server for client processes." t)
-(require 'gnuserv)
-(gnuserv-start)
-;; open in one frame
-(setq gnuserv-frame (selected-frame))
-(setenv "GNUSERV_SHOW_EMACS" "1")   
+(server-start)
 
 ;; load session
 (require 'session)
@@ -236,14 +216,7 @@ If p is negative, move up, otherwise, move down."
 (setq desktop-globals-to-save '(desktop-missing-file-warning))
 
 
-;; load desktop
-;; (load "desktop")
-;; (desktop-load-default) 
-;; (desktop-read)
 (desktop-save-mode t)
-;; save dsektop when exit
-;; (add-hook 'save-buffers-kill-emacs
-;; 	  '(lambda() (desktop-save "~/")))
 
 (setq org-CUA-compatible t)
 
