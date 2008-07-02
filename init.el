@@ -264,10 +264,7 @@ If p is negative, move up, otherwise, move down."
 ;; light weight xml indent
 (require 'xml-lite)
 
-;; erlang mode
-(setq erlang-root-dir "c:/other/erl5.6")
-(setq exec-path (cons "C:/other/erl5.6/bin" exec-path))
-(require 'erlang-start)
+(setq tramp-default-method "ssh")
 
 ;;--------------------configure program environment------------------------------------
 
