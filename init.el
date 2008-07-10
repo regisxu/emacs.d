@@ -209,7 +209,8 @@ If p is negative, move up, otherwise, move down."
 	  (cua-lite 1)))
 
 ;; load gnuserv
-(server-start)
+(if window-system
+    (server-start))
 
 ;; load session
 (require 'session)
