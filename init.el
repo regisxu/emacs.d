@@ -192,7 +192,7 @@ If p is negative, move up, otherwise, move down."
 (setq load-path (append
 		 '("~/.emacs.d/site-lisp/")
 		 load-path))
-
+(load-file "~/.emacs.d/site-lisp/subdirs.el")
 
 ;;; Language environment
 (set-language-environment "Chinese-GB")
@@ -266,7 +266,6 @@ If p is negative, move up, otherwise, move down."
 
 (setq tramp-default-method "ssh")
 
-(add-to-list 'load-path "~/.emacs.d/site-lisp/git-emacs")
 (require 'git-emacs)
 
 ;;--------------------configure program environment------------------------------------
