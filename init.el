@@ -190,8 +190,7 @@ If p is negative, move up, otherwise, move down."
       scroll-conservatively 10000)
 
 (setq load-path (append
-		 '("~/.emacs.d/site-lisp/"
-		   "~/.emacs.d/site-lisp/")
+		 '("~/.emacs.d/site-lisp/")
 		 load-path))
 
 
@@ -266,6 +265,9 @@ If p is negative, move up, otherwise, move down."
 (require 'xml-lite)
 
 (setq tramp-default-method "ssh")
+
+(add-to-list 'load-path "~/.emacs.d/site-lisp/git-emacs")
+(require 'git-emacs)
 
 ;;--------------------configure program environment------------------------------------
 
