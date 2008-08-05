@@ -192,7 +192,6 @@ If p is negative, move up, otherwise, move down."
 (setq load-path (append
 		 '("~/.emacs.d/site-lisp/")
 		 load-path))
-(load-file "~/.emacs.d/site-lisp/subdirs.el")
 
 ;;; Language environment
 (set-language-environment "Chinese-GB")
@@ -241,6 +240,10 @@ If p is negative, move up, otherwise, move down."
 (setq woman-cache-level 3)
 (setq woman-cache-filename "~/.wmcache.el")
 
+;; load ido
+(require 'ido)
+(ido-mode t)
+
 ;; open woman without frame
 (setq woman-use-own-frame nil)
 
@@ -266,7 +269,9 @@ If p is negative, move up, otherwise, move down."
 
 (setq tramp-default-method "ssh")
 
-(require 'git-emacs)
+(custom-set-faces
+  '(diff-added ((t (:foreground "Green2"))) 'now)
+  '(diff-removed ((t (:foreground "IndianRed2"))) 'now))
 
 ;;--------------------configure program environment------------------------------------
 
