@@ -273,6 +273,8 @@ If p is negative, move up, otherwise, move down."
   '(diff-added ((t (:foreground "Green2"))) 'now)
   '(diff-removed ((t (:foreground "IndianRed2"))) 'now))
 
+(autoload 'magit-status "magit" nil t)
+
 ;;--------------------configure program environment------------------------------------
 
 (setq hippie-expand-try-functions-list
