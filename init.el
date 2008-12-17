@@ -308,6 +308,7 @@ If p is negative, move up, otherwise, move down."
 
 ;;--------------------configure program environment------------------------------------
 
+(setq indent-tabs-mode nil)
 (setq tab-width 4)
 
 (setq hippie-expand-try-functions-list
@@ -332,19 +333,15 @@ If p is negative, move up, otherwise, move down."
  '(c-default-style (quote ((c-mode . "stroustrup") (c++-mode . "stroustrup") (java-mode . "java") (other . "gnu"))))
  '(c-macro-prompt-flag nil)
  '(c-macro-shrink-window-flag t)
- '(column-number-mode t)
- '(debug-on-error t)
  '(default-input-method "chinese-py-punct")
  '(display-buffer-reuse-frames t)
  '(display-time-day-and-date nil)
  '(fill-column 80)
  '(global-font-lock-mode t nil (font-lock))
  '(gnus-default-charset (quote cn-gb-2312))
- '(indent-tabs-mode nil)
  '(line-number-display-limit nil)
  '(org-agenda-files (quote ("c:/work/TODO.txt")))
  '(show-paren-mode t nil (paren))
- '(tab-width 4)
  '(transient-mark-mode t)
  '(vc-handled-backends (quote (RCS CVS SVN SCCS Bzr Hg Arch)))
  '(x-select-enable-clipboard t))
