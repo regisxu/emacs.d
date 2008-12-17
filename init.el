@@ -346,6 +346,7 @@ If p is negative, move up, otherwise, move down."
  '(show-paren-mode t nil (paren))
  '(tab-width 4)
  '(transient-mark-mode t)
+ '(vc-handled-backends (quote (RCS CVS SVN SCCS Bzr Hg Arch)))
  '(x-select-enable-clipboard t))
 
 
