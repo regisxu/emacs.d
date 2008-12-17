@@ -233,7 +233,7 @@ If p is negative, move up, otherwise, move down."
     (progn (require 'cua-lite)
 	  (cua-lite 1)))
 
-;; load gnuserv
+;; load emacsclient
 (if window-system
     (server-start))
 
@@ -297,12 +297,18 @@ If p is negative, move up, otherwise, move down."
 (setq tramp-default-method "ssh")
 
 (custom-set-faces
-  '(diff-added ((t (:foreground "Green2"))) 'now)
-  '(diff-removed ((t (:foreground "IndianRed2"))) 'now))
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(diff-added ((t (:foreground "Green2"))))
+ '(diff-removed ((t (:foreground "IndianRed2")))))
 
 (autoload 'magit-status "magit" nil t)
 
 ;;--------------------configure program environment------------------------------------
+
+(setq tab-width 4)
 
 (setq hippie-expand-try-functions-list
       '(try-expand-dabbrev
@@ -334,15 +340,12 @@ If p is negative, move up, otherwise, move down."
  '(fill-column 80)
  '(global-font-lock-mode t nil (font-lock))
  '(gnus-default-charset (quote cn-gb-2312))
+ '(indent-tabs-mode nil)
  '(line-number-display-limit nil)
  '(org-agenda-files (quote ("c:/work/TODO.txt")))
  '(show-paren-mode t nil (paren))
+ '(tab-width 4)
  '(transient-mark-mode t)
  '(x-select-enable-clipboard t))
 
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
+
