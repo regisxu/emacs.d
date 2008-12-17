@@ -231,7 +231,9 @@ If p is negative, move up, otherwise, move down."
 ;; like.
 (if window-system
     (progn (require 'cua-lite)
-	  (cua-lite 1)))
+	   (setq cua-lite-use-hscroll-mode nil)
+	   (cua-lite 1)))
+(setq org-CUA-compatible t)
 
 ;; load emacsclient
 (if window-system
@@ -244,8 +246,6 @@ If p is negative, move up, otherwise, move down."
 
 
 (desktop-save-mode t)
-
-(setq org-CUA-compatible t)
 
 (add-hook 'sgml-mode-hook
 	  '(lambda()
