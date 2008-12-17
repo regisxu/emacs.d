@@ -224,7 +224,7 @@ If p is negative, move up, otherwise, move down."
 (set-language-environment "Chinese-GB")
 
 ;;; Font settings
-(set-default-font "-Adobe-Courier-Medium-R-Normal--20-140-100-100-M-110-ISO8859-1")
+(set-default-font "Bitstream Vera Sans Mono-14")
 
 ;; load cua-lite for shift select. File .emacs.d/site-lisp/cua-lite.el
 ;; is modified, remove keybind for "C-s, C-a...." some keybind i don't
