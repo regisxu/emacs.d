@@ -267,12 +267,12 @@ If p is negative, move up, otherwise, move down."
 (setq woman-cache-level 3)
 (setq woman-cache-filename "~/.wmcache.el")
 
+;; open woman without frame
+(setq woman-use-own-frame nil)
+
 ;; load ido
 (require 'ido)
 (ido-mode t)
-
-;; open woman without frame
-(setq woman-use-own-frame nil)
 
 ;;load htmlize which convert highlight code to html
 (require 'htmlize)
