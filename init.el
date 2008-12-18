@@ -343,7 +343,6 @@ If p is negative, move up, otherwise, move down."
  '(org-agenda-files (quote ("c:/work/TODO.txt")))
  '(show-paren-mode t nil (paren))
  '(transient-mark-mode t)
- '(vc-handled-backends (quote (RCS CVS SVN SCCS Bzr Hg Arch)))
  '(x-select-enable-clipboard t))
 
 
