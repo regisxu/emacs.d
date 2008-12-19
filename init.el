@@ -307,8 +307,6 @@ If p is negative, move up, otherwise, move down."
  '(diff-added ((t (:foreground "Green2"))))
  '(diff-removed ((t (:foreground "IndianRed2")))))
 
-(autoload 'magit-status "magit" nil t)
-
 ;;--------------------configure program environment------------------------------------
 
 (setq indent-tabs-mode nil)
