@@ -31,6 +31,11 @@
 			      (newline)
 			      (indent-according-to-mode)))
 
+(add-hook 'server-switch-hook
+          (lambda ()
+            (local-set-key (kbd "C-x k") 'server-edit)))
+(global-set-key (kbd "C-x C-c") 'delete-frame)
+
 (defun move-line (p)
   "Move current line"
   (interactive "p")
@@ -235,10 +240,6 @@ If p is negative, move up, otherwise, move down."
 	   (cua-lite 1)))
 (setq org-CUA-compatible t)
 
-;; load emacsclient
-(if window-system
-    (server-start))
-
 ;; load session
 (require 'session)
 (add-hook 'after-init-hook 'session-initialize)
@@ -279,7 +280,8 @@ If p is negative, move up, otherwise, move down."
 
 (if window-system
     (progn (require 'color-theme)
-	   (color-theme-gnome2)))
+           (setq color-theme-is-global nil)
+           (color-theme-gnome2)))
 
 ;; Convenient To select from kill ring
 (require 'browse-kill-ring)
