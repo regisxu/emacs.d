@@ -33,7 +33,9 @@
 
 (add-hook 'server-switch-hook
           (lambda ()
-            (local-set-key (kbd "C-x k") 'server-edit)))
+	    (if server-clients
+		(local-set-key (kbd "C-x k") 'server-edit))))
+
 (global-set-key (kbd "C-x C-c") 'delete-frame)
 
 (defun move-line (p)
@@ -230,15 +232,15 @@ If p is negative, move up, otherwise, move down."
 
 ;;; Font settings
 ;(set-default-font "Bitstream Vera Sans Mono-12")
-(set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-20-*-*-*-m-0-iso10646-1")
+;(set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-21-*-*-*-m-0-iso10646-1")
+
 
 ;; load cua-lite for shift select. File .emacs.d/site-lisp/cua-lite.el
 ;; is modified, remove keybind for "C-s, C-a...." some keybind i don't
 ;; like.
-(if window-system
-    (progn (require 'cua-lite)
-	   (setq cua-lite-use-hscroll-mode nil)
-	   (cua-lite 1)))
+(require 'cua-lite)
+(setq cua-lite-use-hscroll-mode nil)
+(cua-lite 1)
 (setq org-CUA-compatible t)
 
 ;; load session
@@ -279,10 +281,28 @@ If p is negative, move up, otherwise, move down."
 ;;load htmlize which convert highlight code to html
 (require 'htmlize)
 
-(if window-system
-    (progn (require 'color-theme)
-           (setq color-theme-is-global nil)
-           (color-theme-gnome2)))
+(defun init-window-frame (&optional frame)
+  "configurations only for window system, such as color-theme, fonts"
+  (select-frame frame)
+  (if window-system
+      (progn
+	(set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-21-*-*-*-m-0-iso10646-1")
+
+	;; load color-theme
+	(require 'color-theme)
+	(setq color-theme-is-global nil)
+	(color-theme-gnome2)
+
+	(custom-set-faces
+	 ;; custom-set-faces was added by Custom.
+	 ;; If you edit it by hand, you could mess it up, so be careful.
+	 ;; Your init file should contain only one such instance.
+	 ;; If there is more than one, they won't work right.
+	 '(diff-added ((t (:foreground "Green2"))))
+	 '(diff-removed ((t (:foreground "IndianRed2"))))))))
+
+;; install color-theme only in window-system
+(add-hook 'after-make-frame-functions 'init-window-frame)
 
 ;; Convenient To select from kill ring
 (require 'browse-kill-ring)
