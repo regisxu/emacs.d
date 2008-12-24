@@ -325,6 +325,10 @@ If p is negative, move up, otherwise, move down."
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(diff-added ((t (:foreground "Green2"))))
+ '(diff-file-header ((((class color) (min-colors 88) (background dark)) (:background "grey60" :weight bold))))
+ '(diff-header ((t (:background "grey45"))))
+ '(diff-hunk-header ((t (:inherit diff-header))))
+ '(diff-index ((t (:inherit diff-file-header))))
  '(diff-removed ((t (:foreground "IndianRed2")))))
 
 ;;--------------------configure program environment------------------------------------
