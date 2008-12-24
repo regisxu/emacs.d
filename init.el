@@ -349,6 +349,7 @@ If p is negative, move up, otherwise, move down."
         try-expand-whole-kill
         ))
 
+(setq vc-handled-backends (quote (CVS SVN Git)))
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
