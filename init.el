@@ -38,6 +38,11 @@
 
 (global-set-key (kbd "C-x C-c") 'delete-frame)
 
+;; recursively find file
+;; TODO select word at point as file name
+(global-set-key (kbd "C-x C-r") 'find-name-dired)
+(setq find-name-arg "\\( -path '*/.svn' -o -path '*/.git' \\) -prune -type f -o ! -name '*~' ! -name '*.so' ! -name '.#*' -iname")
+
 (defun move-line (p)
   "Move current line"
   (interactive "p")
