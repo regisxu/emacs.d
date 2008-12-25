@@ -40,8 +40,19 @@
 
 ;; recursively find file
 ;; TODO select word at point as file name
-(global-set-key (kbd "C-x C-r") 'find-name-dired)
-(setq find-name-arg "\\( -path '*/.svn' -o -path '*/.git' \\) -prune -type f -o ! -name '*~' ! -name '*.so' ! -name '.#*' -iname")
+(defun my-find-name-dired ()
+  "my customized find-name-dired"
+  (interactive)
+  (setq dir (read-directory-name "Run find in directory: " nil "" t))
+  (define-key minibuffer-local-map "\t" '(lambda ()
+                                           (interactive)
+                                           (find-name-dired dir (concat "*" (minibuffer-contents) "*"))
+                                           (select-window (active-minibuffer-window))))
+  (setq arg (read-from-minibuffer "File name to be found: " "" minibuffer-local-map))
+  (find-name-dired dir (concat "*" arg "*")))
+
+(setq find-name-arg "\\( -path '*/.svn' -o -path '*/.git' \\) -prune -type f -o -type f ! -name '*~' ! -name '*.so' ! -name '.#*' -iname")
+(global-set-key (kbd "C-x C-r") 'my-find-name-dired)
 
 (defun move-line (p)
   "Move current line"
