@@ -285,9 +285,6 @@ If p is negative, move up, otherwise, move down."
 	  '(lambda()
 	     (xml-lite-mode 1)))
 
-(add-hook 'text-mode-hook 
-	  '(lambda() (auto-fill-mode 1)))
-
 (setq header-line-format nil)
 
 ;; load html render
