@@ -34,7 +34,7 @@
 (add-hook 'server-switch-hook
           (lambda ()
 	    (if server-clients
-		(local-set-key (kbd "C-x k") 'server-edit))))
+		(local-set-key (kbd "C-x C-c") 'server-edit))))
 
 (global-set-key (kbd "C-x C-c") 'delete-frame)
 
@@ -228,7 +228,6 @@ If p is negative, move up, otherwise, move down."
 ;; accelerate highlight update
 (setq jit-lock-stealth-time 1)
 
-
 (show-paren-mode t)
 (setq show-paren-style 'parenthesis)
 
@@ -314,7 +313,7 @@ If p is negative, move up, otherwise, move down."
   (if window-system
       (progn
 	(set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-21-*-*-*-m-0-iso10646-1")
-
+	(cua-lite t)
 	;; load color-theme
 	(require 'color-theme)
 	(setq color-theme-is-global nil)
@@ -326,7 +325,10 @@ If p is negative, move up, otherwise, move down."
 	 ;; Your init file should contain only one such instance.
 	 ;; If there is more than one, they won't work right.
 	 '(diff-added ((t (:foreground "Green2"))))
-	 '(diff-removed ((t (:foreground "IndianRed2"))))))))
+	 '(diff-removed ((t (:foreground "IndianRed2"))))))
+    (progn
+      (cua-lite -1)
+      (transient-mark-mode t))))
 
 ;; install color-theme only in window-system
 (add-hook 'after-make-frame-functions 'init-window-frame)
