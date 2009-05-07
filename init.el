@@ -14,7 +14,7 @@
 (global-set-key "\C-z" 'set-mark-command)
 
 ;; set key M-. for  hippie-expand
-(global-set-key (kbd "C-.") 'hippie-expand) 
+(global-set-key (kbd "C-.") 'hippie-expand)
 
 ;; set key C-x C-b for bs-show
 (global-set-key (kbd "C-x C-b") 'bs-show)
@@ -26,15 +26,15 @@
 (global-set-key (kbd "C-c C-t") 'toggle-truncate-lines)
 
 (global-set-key [S-return] '(lambda ()
-			      (interactive)
-			      (move-end-of-line 1)
-			      (newline)
-			      (indent-according-to-mode)))
+                              (interactive)
+                              (move-end-of-line 1)
+                              (newline)
+                              (indent-according-to-mode)))
 
 (add-hook 'server-switch-hook
           (lambda ()
-	    (if server-clients
-		(local-set-key (kbd "C-x C-c") 'server-edit))))
+            (if server-clients
+                (local-set-key (kbd "C-x C-c") 'server-edit))))
 
 (global-set-key (kbd "C-x C-c") 'delete-frame)
 
@@ -83,34 +83,34 @@ If p is negative, move up, otherwise, move down."
 If p is negative, move up, otherwise, move down."
   (interactive "p")
   (let ((pl (line-number-at-pos (point)))
-	(pc (current-column))
-	(ml (line-number-at-pos (mark t))))
+        (pc (current-column))
+        (ml (line-number-at-pos (mark t))))
     (setq lower (if (< pl ml) pl ml))
     (setq upper (if (< pl ml) ml pl))
-    (if (or (and (< arg 0) (> (+ lower arg) 0)) 
-	    (and (> arg 0) (< (+ upper arg) (line-number-at-pos (point-max)))))
-	(progn (goto-char (mark t))
-	       (let ((mc (current-column)))
-		 (move-lines-forward lower upper arg)
-		 (goto-line (+ ml arg))
-		 (forward-char mc)
-		 (setq deactivate-mark nil)
-		 (push-mark (point) t t)
-		 (goto-line (+ pl arg))
-		 (forward-char pc))))))
+    (if (or (and (< arg 0) (> (+ lower arg) 0))
+            (and (> arg 0) (< (+ upper arg) (line-number-at-pos (point-max)))))
+        (progn (goto-char (mark t))
+               (let ((mc (current-column)))
+                 (move-lines-forward lower upper arg)
+                 (goto-line (+ ml arg))
+                 (forward-char mc)
+                 (setq deactivate-mark nil)
+                 (push-mark (point) t t)
+                 (goto-line (+ pl arg))
+                 (forward-char pc))))))
 
 (global-set-key [M-up] '(lambda()
-			  (interactive)
-			  (message "up mark %s" mark-active)
-			  (if mark-active
-			      (move-selected-lines -1)
-			    (move-line -1))))
+                          (interactive)
+                          (message "up mark %s" mark-active)
+                          (if mark-active
+                              (move-selected-lines -1)
+                            (move-line -1))))
 
 (global-set-key [M-down] '(lambda()
-			    (interactive)
-			    (if mark-active
-				(move-selected-lines 1)
-			      (move-line 1))))
+                            (interactive)
+                            (if mark-active
+                                (move-selected-lines 1)
+                              (move-line 1))))
 
 ;; toggle split window vertical or horizontal
 ;; from http://www.emacswiki.org/cgi-bin/emacs-en/ToggleWindowSplit
@@ -118,34 +118,34 @@ If p is negative, move up, otherwise, move down."
   (interactive)
   (if (= (count-windows) 2)
       (let* ((this-win-buffer (window-buffer))
-	     (next-win-buffer (window-buffer (next-window)))
-	     (this-win-edges (window-edges (selected-window)))
-	     (next-win-edges (window-edges (next-window)))
-	     (this-win-2nd (not (and (<= (car this-win-edges)
-					 (car next-win-edges))
-				     (<= (cadr this-win-edges)
-					 (cadr next-win-edges)))))
-	     (splitter
-	      (if (= (car this-win-edges)
-		     (car (window-edges (next-window))))
-		  'split-window-horizontally
-		'split-window-vertically)))
-	(delete-other-windows)
-	(let ((first-win (selected-window)))
-	  (funcall splitter)
-	  (if this-win-2nd (other-window 1))
-	  (set-window-buffer (selected-window) this-win-buffer)
-	  (set-window-buffer (next-window) next-win-buffer)
-	  (select-window first-win)
-	  (if this-win-2nd (other-window 1))))))
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (<= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (<= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter
+              (if (= (car this-win-edges)
+                     (car (window-edges (next-window))))
+                  'split-window-horizontally
+                'split-window-vertically)))
+        (delete-other-windows)
+        (let ((first-win (selected-window)))
+          (funcall splitter)
+          (if this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (if this-win-2nd (other-window 1))))))
 (global-set-key (kbd "C-=") 'toggle-window-split)
 
 
 ;; set key for hs-minor-mode
 (add-hook 'hs-minor-mode-hook
-	  '(lambda()
-	     (define-key hs-minor-mode-map (kbd "C-c b") 'hs-toggle-hiding)
-	     (define-key hs-minor-mode-map (kbd "C-c l") 'hs-hide-level)))
+          '(lambda()
+             (define-key hs-minor-mode-map (kbd "C-c b") 'hs-toggle-hiding)
+             (define-key hs-minor-mode-map (kbd "C-c l") 'hs-hide-level)))
 
 
 ;; configure whitespace-mode
@@ -168,12 +168,12 @@ If p is negative, move up, otherwise, move down."
   (add-hook 'value 'my-hook-for-whitespace))
 
 (add-hook 'dired-load-hook
-	  (lambda ()
-	    (load "dired-x")
-	    ;; Set dired-x global variables here.  For example:
-	    ;;(setq dired-guess-shell-gnutar "gtar")
-	    ;; (setq dired-x-hands-off-my-keys nil)
-	    ))
+          (lambda ()
+            (load "dired-x")
+            ;; Set dired-x global variables here.  For example:
+            ;;(setq dired-guess-shell-gnutar "gtar")
+            ;; (setq dired-x-hands-off-my-keys nil)
+            ))
 
 ;;-------------------------------------customize option--------------------------------
 
@@ -195,7 +195,7 @@ If p is negative, move up, otherwise, move down."
 ;; auto show image
 (auto-image-file-mode t)
 
-;; promote when file change 
+;; promote when file change
 (global-auto-revert-mode)
 
 ;; don't show toobar
@@ -253,15 +253,15 @@ If p is negative, move up, otherwise, move down."
       scroll-conservatively 10000)
 
 (setq load-path (append
-		 '("~/.emacs.d/site-lisp/")
-		 load-path))
+                 '("~/.emacs.d/site-lisp/")
+                 load-path))
 
-;;; Language environment
+;; Language environment
 (set-language-environment "Chinese-GB")
 
-;;; Font settings
-;(set-default-font "Bitstream Vera Sans Mono-12")
-;(set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-21-*-*-*-m-0-iso10646-1")
+;; Font settings
+;;(set-default-font "Bitstream Vera Sans Mono-12")
+;;(set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-21-*-*-*-m-0-iso10646-1")
 
 
 ;; load cua-lite for shift select. File .emacs.d/site-lisp/cua-lite.el
@@ -281,8 +281,8 @@ If p is negative, move up, otherwise, move down."
 (desktop-save-mode t)
 
 (add-hook 'sgml-mode-hook
-	  '(lambda()
-	     (xml-lite-mode 1)))
+          '(lambda()
+             (xml-lite-mode 1)))
 
 (setq header-line-format nil)
 
@@ -291,7 +291,7 @@ If p is negative, move up, otherwise, move down."
 
 
 ;; load game typing
-;(autoload 'typing-of-emacs "typing" "The Typing Of Emacs, a game." t)
+;;(autoload 'typing-of-emacs "typing" "The Typing Of Emacs, a game." t)
 
 ;; accelerate woman
 (setq woman-cache-level 3)
@@ -312,20 +312,20 @@ If p is negative, move up, otherwise, move down."
   (select-frame frame)
   (if window-system
       (progn
-	(set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-21-*-*-*-m-0-iso10646-1")
-	(cua-lite t)
-	;; load color-theme
-	(require 'color-theme)
-	(setq color-theme-is-global nil)
-	(color-theme-gnome2)
+        (set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-21-*-*-*-m-0-iso10646-1")
+        (cua-lite t)
+        ;; load color-theme
+        (require 'color-theme)
+        (setq color-theme-is-global nil)
+        (color-theme-gnome2)
 
-	(custom-set-faces
-	 ;; custom-set-faces was added by Custom.
-	 ;; If you edit it by hand, you could mess it up, so be careful.
-	 ;; Your init file should contain only one such instance.
-	 ;; If there is more than one, they won't work right.
-	 '(diff-added ((t (:foreground "Green2"))))
-	 '(diff-removed ((t (:foreground "IndianRed2"))))))
+        (custom-set-faces
+         ;; custom-set-faces was added by Custom.
+         ;; If you edit it by hand, you could mess it up, so be careful.
+         ;; Your init file should contain only one such instance.
+         ;; If there is more than one, they won't work right.
+         '(diff-added ((t (:foreground "Green2"))))
+         '(diff-removed ((t (:foreground "IndianRed2"))))))
     (progn
       (cua-lite -1)
       (transient-mark-mode t))))
@@ -349,10 +349,10 @@ If p is negative, move up, otherwise, move down."
 (setq tramp-default-method "ssh")
 
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(diff-added ((t (:foreground "Green2"))))
  '(diff-file-header ((((class color) (min-colors 88) (background dark)) (:background "grey60" :weight bold))))
  '(diff-header ((t (:background "grey45"))))
@@ -364,8 +364,8 @@ If p is negative, move up, otherwise, move down."
 
 ;; tab width and indent mode should be set in Custom,
 ;; otherwise they automatically becomes buffer-local
-;(setq tab-width 4)
-;(setq indent-tabs-mode nil)
+                                        ;(setq tab-width 4)
+                                        ;(setq indent-tabs-mode nil)
 
 (setq hippie-expand-try-functions-list
       '(try-expand-dabbrev
@@ -383,10 +383,10 @@ If p is negative, move up, otherwise, move down."
 (setq vc-handled-backends (quote (Git)))
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(c-default-style (quote ((c-mode . "stroustrup") (c++-mode . "stroustrup") (java-mode . "java") (other . "gnu"))))
  '(c-macro-prompt-flag nil)
  '(c-macro-shrink-window-flag t)
