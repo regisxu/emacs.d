@@ -148,10 +148,24 @@ If p is negative, move up, otherwise, move down."
 	     (define-key hs-minor-mode-map (kbd "C-c l") 'hs-hide-level)))
 
 
-(add-hook 'c-mode-hook 
-	  '(lambda() 
-	     (hs-minor-mode 1)
-	     ))
+;; configure whitespace-mode
+(require 'whitespace)
+(setq whitespace-style '(trailing tabs indentation space-after-tab space-before-tab))
+
+(setq my-hook-list-for-whitespace
+      (list 'c-mode-hook
+            'c++-mode-hook
+            'java-mode-hook
+            'emacs-lisp-mode-hook
+            'sgml-mode-hook
+            'shell-script-mode-hook))
+
+(setq my-hook-for-whitespace '(lambda()
+                                (setq indent-tabs-mode nil)
+                                (whitespace-mode t)
+                                ))
+(dolist (value my-hook-list-for-whitespace)
+  (add-hook 'value 'my-hook-for-whitespace))
 
 (add-hook 'dired-load-hook
 	  (lambda ()
@@ -349,8 +363,10 @@ If p is negative, move up, otherwise, move down."
 
 ;;--------------------configure program environment------------------------------------
 
-(setq indent-tabs-mode nil)
-(setq tab-width 4)
+;; tab width and indent mode should be set in Custom,
+;; otherwise they automatically becomes buffer-local
+;(setq tab-width 4)
+;(setq indent-tabs-mode nil)
 
 (setq hippie-expand-try-functions-list
       '(try-expand-dabbrev
