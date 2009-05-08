@@ -40,6 +40,8 @@
 
 ;; recursively find file
 ;; TODO select word at point as file name
+;; TODO add history
+;; TODO <ENTER> dones't search if the key is searched last time
 (defun my-find-name-dired ()
   "my customized find-name-dired"
   (interactive)
@@ -48,8 +50,17 @@
                                            (interactive)
                                            (find-name-dired dir (concat "*" (minibuffer-contents) "*"))
                                            (select-window (active-minibuffer-window))))
-  (setq arg (read-from-minibuffer "File name to be found: " "" minibuffer-local-map))
+  (setq prompt "File name to be found ")
+  (if my-last-find-name
+      (setq prompt (concat prompt "(default " "\"" my-last-find-name "\")")))
+  (setq prompt (concat prompt ": "))
+  (setq arg (read-from-minibuffer prompt "" minibuffer-local-map))
+  (if (string= arg "")
+      (setq arg my-last-find-name))
+  (setq my-last-find-name arg)
   (find-name-dired dir (concat "*" arg "*")))
+
+(setq my-last-find-name nil)
 
 (setq find-name-arg "\\( -path '*/.svn' -o -path '*/.git' \\) -prune -type f -o -type f ! -name '*~' ! -name '*.so' ! -name '.#*' -iname")
 (global-set-key (kbd "C-x C-r") 'my-find-name-dired)
@@ -195,7 +206,7 @@ If p is negative, move up, otherwise, move down."
 ;; auto show image
 (auto-image-file-mode t)
 
-;; promote when file change
+;; prompt when file change
 (global-auto-revert-mode)
 
 ;; don't show toobar
