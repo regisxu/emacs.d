@@ -231,6 +231,9 @@ If p is negative, move up, otherwise, move down."
 ;; enable visual feedback on selections
 (setq-default transient-mark-mode t)
 
+;; enable replace current selection
+(delete-selection-mode t)
+
 ;; always end a file with a newline
 (setq require-final-newline t)
 
