@@ -175,8 +175,16 @@ If p is negative, move up, otherwise, move down."
                                 (setq indent-tabs-mode nil)
                                 (whitespace-mode t)
                                 ))
-(dolist (value my-hook-list-for-whitespace)
-  (add-hook 'value 'my-hook-for-whitespace))
+(add-hook 'c-mode-hook my-hook-for-whitespace)
+(add-hook 'c++-mode-hook my-hook-for-whitespace)
+(add-hook 'java-mode-hook my-hook-for-whitespace)
+(add-hook 'emacs-lisp-mode-hook my-hook-for-whitespace)
+(add-hook 'sgml-mode-hook my-hook-for-whitespace)
+(add-hook 'shell-script-mode-hook my-hook-for-whitespace)
+(add-hook 'diff-mode-hook my-hook-for-whitespace)
+
+;; (dolist (value my-hook-list-for-whitespace)
+;;    (add-hook 'value my-hook-for-whitespace))
 
 (add-hook 'dired-load-hook
           (lambda ()
