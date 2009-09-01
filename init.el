@@ -45,7 +45,7 @@
 (defun my-find-name-dired ()
   "my customized find-name-dired"
   (interactive)
-  (setq dir (read-directory-name "Run find in directory: " nil "" t))
+  (setq dir (ido-read-directory-name "Run find in directory: " nil "" t))
   (define-key minibuffer-local-map "\t" '(lambda ()
                                            (interactive)
                                            (find-name-dired dir (concat "*" (minibuffer-contents) "*"))
@@ -194,6 +194,16 @@ If p is negative, move up, otherwise, move down."
             ;; (setq dired-x-hands-off-my-keys nil)
             ))
 
+(defun sudo-edit (&optional arg)
+  (interactive "p")
+  (if arg
+      (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
+    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+
+(defun sudo-edit-current-file ()
+  (interactive)
+  (find-alternate-file (concat "/sudo:root@localhost:" (buffer-file-name (current-buffer)))))
+
 ;;-------------------------------------customize option--------------------------------
 
 
@@ -255,6 +265,10 @@ If p is negative, move up, otherwise, move down."
 
 ;; only show y-or-n
 (fset 'yes-or-no-p 'y-or-n-p)
+
+;; ignore case for  mini-buffer completion
+(setq read-buffer-completion-ignore-case t)
+(setq read-file-name-completion-ignore-case t)
 
 ;; show column number
 (column-number-mode t)
