@@ -438,6 +438,7 @@ If p is negative, move up, otherwise, move down."
  '(default-input-method "chinese-py-punct")
  '(display-buffer-reuse-frames t)
  '(display-time-day-and-date nil)
+ '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(fill-column 80)
  '(global-font-lock-mode t nil (font-lock))
  '(gnus-default-charset (quote cn-gb-2312))
