@@ -45,7 +45,7 @@
 (defun my-find-name-dired ()
   "my customized find-name-dired"
   (interactive)
-  (setq dir (ido-read-directory-name "Run find in directory: " nil "" t))
+  (setq dir (read-directory-name "Run find in directory: " nil "" t))
   (define-key minibuffer-local-map "\t" '(lambda ()
                                            (interactive)
                                            (find-name-dired dir (concat "*" (minibuffer-contents) "*"))
@@ -197,7 +197,7 @@ If p is negative, move up, otherwise, move down."
 (defun sudo-edit (&optional arg)
   (interactive "p")
   (if arg
-      (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
+      (find-file (concat "/sudo:root@localhost:" (read-file-name "File: ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 (defun sudo-edit-current-file ()
@@ -339,6 +339,10 @@ If p is negative, move up, otherwise, move down."
 ;; load ido
 (require 'ido)
 (ido-mode t)
+(ido-everywhere t)
+(setq ido-auto-merge-work-directories-length -1)
+
+(setq ido-dir-file-cache nil)
 
 ;;load htmlize which convert highlight code to html
 (require 'htmlize)
