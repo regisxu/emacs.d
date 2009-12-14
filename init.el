@@ -388,6 +388,11 @@ If p is negative, move up, otherwise, move down."
 
 (setq tramp-default-method "ssh")
 
+;; load uniquify
+(require 'uniquify)
+
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
