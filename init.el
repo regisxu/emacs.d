@@ -212,8 +212,8 @@ If p is negative, move up, otherwise, move down."
 ;; dont bell when doing wrong operation
 (setq visible-bell t)
 
-(setq user-full-name "Bahamut")
-(setq user-mail-address "jbahamut@gmail.com")
+(setq user-full-name "Regis Xu")
+(setq user-mail-address "xu.regis@gmail.com")
 
 (mouse-avoidance-mode 'animate)
 
@@ -394,10 +394,10 @@ If p is negative, move up, otherwise, move down."
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(diff-added ((t (:foreground "Green2"))))
  '(diff-file-header ((((class color) (min-colors 88) (background dark)) (:background "grey60" :weight bold))))
  '(diff-header ((t (:background "grey45"))))
@@ -428,10 +428,10 @@ If p is negative, move up, otherwise, move down."
 (setq vc-handled-backends (quote (Git)))
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(c-default-style (quote ((c-mode . "stroustrup") (c++-mode . "stroustrup") (java-mode . "java") (other . "gnu"))))
  '(c-macro-prompt-flag nil)
  '(c-macro-shrink-window-flag t)
@@ -442,9 +442,11 @@ If p is negative, move up, otherwise, move down."
  '(fill-column 80)
  '(global-font-lock-mode t nil (font-lock))
  '(gnus-default-charset (quote cn-gb-2312))
+ '(ido-auto-merge-work-directories-length -1)
  '(line-number-display-limit nil)
  '(org-agenda-files (quote ("c:/work/TODO.txt")))
  '(show-paren-mode t nil (paren))
+ '(tab-width 4)
  '(transient-mark-mode t)
  '(x-select-enable-clipboard t))
 
