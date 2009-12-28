@@ -327,6 +327,14 @@ If p is negative, move up, otherwise, move down."
 ;; open woman without frame
 (setq woman-use-own-frame nil)
 
+(require 'auto-install)
+(auto-install-update-emacswiki-package-name t)
+(auto-install-compatibility-setup)
+(setq auto-install-directory "~/.emacs.d/site-lisp/")
+
+;; Following package can install from emacswiki
+;; browse-kill-ring.el, htmlize.el, mazemax.el
+
 ;; load ido
 (require 'ido)
 (ido-mode t)
