@@ -368,10 +368,6 @@ If p is negative, move up, otherwise, move down."
 ;; don't show duplicates
 (setq browse-kill-ring-display-duplicates nil)
 
-;; show line number on the left
-(require 'setnu)
-(setq setnu-line-number-format "%4d ")
-
 ;; light weight xml indent
 (require 'xml-lite)
 
