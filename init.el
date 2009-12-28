@@ -299,15 +299,6 @@ If p is negative, move up, otherwise, move down."
 ;;(set-default-font "Bitstream Vera Sans Mono-12")
 ;;(set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-21-*-*-*-m-0-iso10646-1")
 
-
-;; load cua-lite for shift select. File .emacs.d/site-lisp/cua-lite.el
-;; is modified, remove keybind for "C-s, C-a...." some keybind i don't
-;; like.
-(require 'cua-lite)
-(setq cua-lite-use-hscroll-mode nil)
-(cua-lite 1)
-(setq org-CUA-compatible t)
-
 ;; load session
 (require 'session)
 (add-hook 'after-init-hook 'session-initialize)
@@ -353,7 +344,6 @@ If p is negative, move up, otherwise, move down."
   (if window-system
       (progn
         (set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-21-*-*-*-m-0-iso10646-1")
-        (cua-lite t)
         ;; load color-theme
         (require 'color-theme)
         (setq color-theme-is-global nil)
@@ -367,7 +357,6 @@ If p is negative, move up, otherwise, move down."
          '(diff-added ((t (:foreground "Green2"))))
          '(diff-removed ((t (:foreground "IndianRed2"))))))
     (progn
-      (cua-lite -1)
       (transient-mark-mode t))))
 
 ;; install color-theme only in window-system
