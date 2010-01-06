@@ -293,11 +293,7 @@ If p is negative, move up, otherwise, move down."
                  load-path))
 
 ;; Language environment
-(set-language-environment "Chinese-GB")
-
-;; Font settings
-;;(set-default-font "Bitstream Vera Sans Mono-12")
-;;(set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-21-*-*-*-m-0-iso10646-1")
+(set-language-environment "Chinese-GB18030")
 
 ;; load session
 (require 'session)
@@ -312,13 +308,6 @@ If p is negative, move up, otherwise, move down."
              (xml-lite-mode 1)))
 
 (setq header-line-format nil)
-
-;; load html render
-;;(load-file "~/emacs.d/site-lisp/htmlr.el")
-
-
-;; load game typing
-;;(autoload 'typing-of-emacs "typing" "The Typing Of Emacs, a game." t)
 
 ;; accelerate woman
 (setq woman-cache-level 3)
@@ -421,6 +410,9 @@ If p is negative, move up, otherwise, move down."
 
 (setq vc-handled-backends (quote (Git)))
 
+(if (string= system-type "windows-nt")
+    (load-file "~/.emacs.d/windows.el"))
+
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -438,7 +430,6 @@ If p is negative, move up, otherwise, move down."
  '(gnus-default-charset (quote cn-gb-2312))
  '(ido-auto-merge-work-directories-length -1)
  '(line-number-display-limit nil)
- '(org-agenda-files (quote ("c:/work/TODO.txt")))
  '(show-paren-mode t nil (paren))
  '(tab-width 4)
  '(transient-mark-mode t)
