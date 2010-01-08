@@ -396,7 +396,8 @@ If p is negative, move up, otherwise, move down."
  '(diff-header ((t (:background "grey45"))))
  '(diff-hunk-header ((t (:inherit diff-header))))
  '(diff-index ((t (:inherit diff-file-header))))
- '(diff-removed ((t (:foreground "IndianRed2")))))
+ '(diff-removed ((t (:foreground "IndianRed2"))))
+ '(diredp-file-name ((t nil))))
 
 ;;--------------------configure program environment------------------------------------
 
