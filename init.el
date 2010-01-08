@@ -181,11 +181,10 @@ If p is negative, move up, otherwise, move down."
 
 (add-hook 'dired-load-hook
           (lambda ()
-            (load "dired-x")
-            ;; Set dired-x global variables here.  For example:
-            ;;(setq dired-guess-shell-gnutar "gtar")
-            ;; (setq dired-x-hands-off-my-keys nil)
+            (load "dired+")
+            ;; Set dired+ global variables here.
             ))
+(setq dired-listing-switches "-lh --group-directories-first")
 
 ;;-------------------------------------customize option--------------------------------
 
@@ -345,7 +344,21 @@ If p is negative, move up, otherwise, move down."
  '(diff-hunk-header ((t (:inherit diff-header))))
  '(diff-index ((t (:inherit diff-file-header))))
  '(diff-removed ((t (:foreground "IndianRed2"))))
- '(diredp-file-name ((t nil))))
+ '(diredp-deletion ((t (:inherit font-lock-warning-face))))
+ '(diredp-deletion-file-name ((t (:inherit font-lock-warning-face))))
+ '(diredp-dir-heading ((t (:inherit font-lock-type-face))))
+ '(diredp-dir-priv ((t (:inherit font-lock-function-name-face))))
+ '(diredp-exec-priv ((t (:foreground "lime green"))))
+ '(diredp-executable-tag ((t (:foreground "lime green"))))
+ '(diredp-file-name ((t nil)))
+ '(diredp-file-suffix ((t (:inherit font-lock-type-face))))
+ '(diredp-flag-mark ((t (:inherit font-lock-warning-face))))
+ '(diredp-flag-mark-line ((t (:inherit font-lock-warning-face))))
+ '(diredp-ignored-file-name ((t (:inherit shadow))))
+ '(diredp-no-priv ((t (:foreground "light grey"))))
+ '(diredp-rare-priv ((t (:foreground "spring green"))))
+ '(diredp-read-priv ((t (:foreground "medium aquamarine"))))
+ '(diredp-write-priv ((t (:foreground "orchid")))))
 
 ;;--------------------configure program environment------------------------------------
 
