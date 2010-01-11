@@ -355,6 +355,7 @@ If p is negative, move up, otherwise, move down."
  '(diredp-flag-mark ((t (:inherit font-lock-warning-face))))
  '(diredp-flag-mark-line ((t (:inherit font-lock-warning-face))))
  '(diredp-ignored-file-name ((t (:inherit shadow))))
+ '(diredp-inode+size ((t (:foreground "CadetBlue1"))))
  '(diredp-no-priv ((t (:foreground "light grey"))))
  '(diredp-rare-priv ((t (:foreground "spring green"))))
  '(diredp-read-priv ((t (:foreground "medium aquamarine"))))
