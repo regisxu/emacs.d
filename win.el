@@ -2,10 +2,7 @@
                  '("~/.emacs.d/site-lisp/win")
                  load-path))
 
-;;; Language environment
-(set-language-environment "Chinese-GB18030")
-
-;;; Font settings
+;; Font settings
 (set-default-font "Bitstream Vera Sans Mono-14")
 
 (require 'color-theme)
@@ -18,6 +15,8 @@
 
 ;; start emacs server
 (server-start)
+
+(setq dired-listing-switches "-lh")
 
 ;; Add muse to load-path
 (add-to-list 'load-path "~/.emacs.d/site-lisp/win/muse-3.12/lisp")

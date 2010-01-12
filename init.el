@@ -11,7 +11,7 @@
 
 (global-set-key [f9] 'delete-other-windows)
 ;; set key ctrl-z is set mark
-(global-set-key "\C-z" 'set-mark-command)
+(global-set-key (kbd "C-z") 'set-mark-command)
 
 ;; set key M-. for  hippie-expand
 (global-set-key (kbd "C-.") 'hippie-expand)
@@ -184,7 +184,6 @@ If p is negative, move up, otherwise, move down."
             (load "dired+")
             ;; Set dired+ global variables here.
             ))
-(setq dired-listing-switches "-lh --group-directories-first")
 
 ;;-------------------------------------customize option--------------------------------
 

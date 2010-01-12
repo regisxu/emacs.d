@@ -41,3 +41,4 @@
   (interactive)
   (find-alternate-file (concat "/sudo:root@localhost:" (buffer-file-name (current-buffer)))))
 
+(setq dired-listing-switches "-lh --group-directories-first")
