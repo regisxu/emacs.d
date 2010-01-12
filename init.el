@@ -384,7 +384,7 @@ If p is negative, move up, otherwise, move down."
 (setq vc-handled-backends (quote (Git)))
 
 (if (string= system-type "windows-nt")
-    (load-file "~/.emacs.d/windows.el")
+    (load-file "~/.emacs.d/win.el")
   (load-file "~/.emacs.d/unix.el"))
 
 (custom-set-variables
