@@ -395,6 +395,7 @@ If p is negative, move up, otherwise, move down."
  '(c-macro-prompt-flag nil)
  '(c-macro-shrink-window-flag t)
  '(default-input-method "chinese-py-punct")
+ '(diff-switches "-u")
  '(display-buffer-reuse-frames t)
  '(display-time-day-and-date nil)
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
