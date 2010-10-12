@@ -300,6 +300,15 @@ If p is negative, move up, otherwise, move down."
   (dolist (package my-packages-from-emacswiki)
     (auto-install-from-emacswiki package)))
 
+(setq my-packages-from-url '("http://www.emacswiki.org/emacs/download/dired+.el"))
+(defun update-packages-from-url ()
+  (interactive)
+  (require 'auto-install)
+  (setq auto-install-directory "~/.emacs.d/site-lisp/")
+  (dolist (package my-packages-from-url)
+    (auto-install-from-url package)))
+
+
 ;; load ido
 (require 'ido)
 (ido-mode t)
