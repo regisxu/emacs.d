@@ -297,13 +297,17 @@ If p is negative, move up, otherwise, move down."
 ;; open woman without frame
 (setq woman-use-own-frame nil)
 
-(require 'auto-install)
-(auto-install-update-emacswiki-package-name t)
-(auto-install-compatibility-setup)
-(setq auto-install-directory "~/.emacs.d/site-lisp/")
-
 ;; Following package can install from emacswiki
-;; browse-kill-ring.el, htmlize.el, mazemax.el
+;; browse-kill-ring.el, htmlize.el, mazemax.el, auto-install.el
+(setq my-packages-from-emacswiki '("browse-kill-ring.el" "htmlize.el" "auto-install.el"))
+
+;; This function could download and install packages from emacswiki
+(defun update-packages-from-emacswiki ()
+  (interactive)
+  (require 'auto-install)
+  (setq auto-install-directory "~/.emacs.d/site-lisp/")
+  (dolist (package my-packages-from-emacswiki)
+    (auto-install-from-emacswiki package)))
 
 ;; load ido
 (require 'ido)
