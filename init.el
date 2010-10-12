@@ -161,24 +161,19 @@ If p is negative, move up, otherwise, move down."
             'c++-mode-hook
             'java-mode-hook
             'emacs-lisp-mode-hook
-            'sgml-mode-hook
-            'shell-script-mode-hook))
+            'nxml-mode-hook
+            'shell-script-mode-hook
+            'diff-mode-hook))
 
 (setq my-hook-for-whitespace '(lambda()
                                 (setq indent-tabs-mode nil)
                                 (whitespace-mode t)
                                 ))
-(add-hook 'c-mode-hook my-hook-for-whitespace)
-(add-hook 'c++-mode-hook my-hook-for-whitespace)
-(add-hook 'java-mode-hook my-hook-for-whitespace)
-(add-hook 'emacs-lisp-mode-hook my-hook-for-whitespace)
-(add-hook 'sgml-mode-hook my-hook-for-whitespace)
-(add-hook 'shell-script-mode-hook my-hook-for-whitespace)
-(add-hook 'diff-mode-hook my-hook-for-whitespace)
 
-;; (dolist (value my-hook-list-for-whitespace)
-;;    (add-hook 'value my-hook-for-whitespace))
+(dolist (value my-hook-list-for-whitespace)
+  (add-hook value my-hook-for-whitespace))
 
+;; load dired+
 (add-hook 'dired-load-hook
           (lambda ()
             (load "dired+")
@@ -284,10 +279,6 @@ If p is negative, move up, otherwise, move down."
 
 (desktop-save-mode t)
 
-(add-hook 'sgml-mode-hook
-          '(lambda()
-             (xml-lite-mode 1)))
-
 (setq header-line-format nil)
 
 ;; accelerate woman
@@ -325,9 +316,6 @@ If p is negative, move up, otherwise, move down."
 (browse-kill-ring-default-keybindings)
 ;; don't show duplicates
 (setq browse-kill-ring-display-duplicates nil)
-
-;; light weight xml indent
-(require 'xml-lite)
 
 (setq tramp-default-method "ssh")
 
@@ -408,6 +396,8 @@ If p is negative, move up, otherwise, move down."
  '(gnus-default-charset (quote cn-gb-2312))
  '(ido-auto-merge-work-directories-length -1)
  '(line-number-display-limit nil)
+ '(nxml-child-indent 4)
+ '(nxml-slash-auto-complete-flag t)
  '(show-paren-mode t nil (paren))
  '(tab-width 4)
  '(transient-mark-mode t)
