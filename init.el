@@ -325,6 +325,9 @@ The URL list is read from variable 'my-packages-from-url'"
   (my-update-packages-from-emacswiki)
   (my-update-packages-from-url))
 
+(if (not (file-exists-p "~/.emacs.d/site-lisp/auto-install.el"))
+    (my-update-all-required-packages))
+
 ;; load ido
 (require 'ido)
 (ido-mode t)
