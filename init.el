@@ -273,11 +273,6 @@ If p is negative, move up, otherwise, move down."
 
 (load-file "~/.emacs.d/install.el")
 
-;; load session
-(require 'session)
-(add-hook 'after-init-hook 'session-initialize)
-(setq desktop-globals-to-save '(desktop-missing-file-warning))
-
 (require 'desktop)
 ;; automatically overriding stale desktop lock
 (defun emacs-process-p (pid)
