@@ -279,10 +279,11 @@ If p is negative, move up, otherwise, move down."
   "If pid is the process ID of an emacs process, return t, else nil.
 Also returns nil if pid is nil."
   (when pid
-    (setq using nil)
-    (dolist (p (list-system-processes))
-      (if (= p pid) (setq using t)))
-    (if using t nil)))
+    (let ((attributes (process-attributes pid)) (cmd))
+      (dolist (attr attributes)
+        (if (string= "comm" (car attr))
+            (setq cmd (cdr attr))))
+      (if (and cmd (or (string= "emacs" cmd) (string= "emacs.exe" cmd))) t))))
 
 (defadvice desktop-owner (after pry-from-cold-dead-hands activate)
   "Don't allow dead emacsen to own the desktop file."
