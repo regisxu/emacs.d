@@ -25,6 +25,13 @@ The URL list is read from variable 'my-packages-from-url'"
     (message "Update package from %s" package)
     (auto-install-from-url package)))
 
+(defun my-update-color-theme ()
+  (interactive)
+  "Download and install the latest color-theme. It will overwrite
+exsited local version without asking"
+  (url-copy-file "http://ftp.twaren.net/Unix/NonGNU/color-theme/color-theme.el.gz" "~/.emacs.d/site-lisp/color-theme.el.gz" t)
+  (byte-compile-file "~/.emacs.d/site-lisp/color-theme.el.gz"))
+
 (defun my-update-all-required-packages (&optional not-confirm)
   "Downlaond and install all required packages"
   (interactive)
@@ -33,6 +40,7 @@ The URL list is read from variable 'my-packages-from-url'"
         (url-copy-file "http://www.emacswiki.org/emacs/download/auto-install.el" "~/.emacs.d/site-lisp/auto-install.el")
         (byte-compile-file "~/.emacs.d/site-lisp/auto-install.el")))
   (my-update-packages-from-emacswiki (not not-confirm))
+  (my-update-color-theme)
   (my-update-packages-from-url (not not-confirm)))
 
 (if (not (file-exists-p "~/.emacs.d/site-lisp/auto-install.el"))
