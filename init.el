@@ -173,13 +173,6 @@ If p is negative, move up, otherwise, move down."
 (dolist (value my-hook-list-for-whitespace)
   (add-hook value my-hook-for-whitespace))
 
-;; load dired+
-(add-hook 'dired-load-hook
-          (lambda ()
-            (load "dired+")
-            ;; Set dired+ global variables here.
-            ))
-
 ;;-------------------------------------customize option--------------------------------
 
 
@@ -259,7 +252,6 @@ If p is negative, move up, otherwise, move down."
 ;; don't display vertical scroll bar
 (scroll-bar-mode -1)
 
-
 (setq scroll-step 1
       scroll-margin 5
       scroll-conservatively 10000)
@@ -272,6 +264,13 @@ If p is negative, move up, otherwise, move down."
 (set-language-environment "Chinese-GB18030")
 
 (load-file "~/.emacs.d/install.el")
+
+;; load dired+
+(add-hook 'dired-load-hook
+          (lambda ()
+            (load "dired+")
+            ;; Set dired+ global variables here.
+            ))
 
 (require 'desktop)
 ;; automatically overriding stale desktop lock

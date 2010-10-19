@@ -1,47 +1,20 @@
-(setq my-packages-from-emacswiki '("auto-install.el" "browse-kill-ring.el" "htmlize.el"))
+(setq my-packages-from-emacswiki '("browse-kill-ring.el" "htmlize.el" "dired+.el"))
 
-;; This function could download and install packages from emacswiki
-(defun my-update-packages-from-emacswiki (&optional not-confirm)
-  "Download and install packages from emacswiki.
-The package list is read from variable 'my-packages-from-emacswiki'"
+(defun my-download-packages-from-emacswiki ()
+  (dolist (file-name my-packages-from-emacswiki)
+    (when (not (file-exists-p (concat "~/.emacs.d/site-lisp/" file-name)))
+      (message "Download package %s" file-name)
+      (url-copy-file (concat "http://www.emacswiki.org/emacs/download/" file-name)
+                     (concat "~/.emacs.d/site-lisp/" file-name))
+      (byte-compile-file (concat "~/.emacs.d/site-lisp/" file-name)))))
+
+(defun my-download-color-theme ()
   (interactive)
-  (require 'auto-install)
-  (setq auto-install-directory "~/.emacs.d/site-lisp/")
-  (setq auto-install-save-confirm (not not-confirm))
-  (dolist (package my-packages-from-emacswiki)
-    (message "Update package %s" package)
-    (auto-install-from-emacswiki package)))
+  "Download and install the latest color-theme."
+  (when (not (file-exists-p "~/.emacs.d/site-lisp/color-theme.el.gz"))
+    (url-copy-file "http://ftp.twaren.net/Unix/NonGNU/color-theme/color-theme.el.gz"
+                   "~/.emacs.d/site-lisp/color-theme.el.gz")
+    (byte-compile-file "~/.emacs.d/site-lisp/color-theme.el.gz")))
 
-(setq my-packages-from-url '("http://www.emacswiki.org/emacs/download/dired+.el"))
-
-(defun my-update-packages-from-url (&optional not-confirm)
-  "Download and install packages from URL.
-The URL list is read from variable 'my-packages-from-url'"
-  (interactive)
-  (require 'auto-install)
-  (setq auto-install-directory "~/.emacs.d/site-lisp/")
-  (setq auto-install-save-confirm (not not-confirm))
-  (dolist (package my-packages-from-url)
-    (message "Update package from %s" package)
-    (auto-install-from-url package)))
-
-(defun my-update-color-theme ()
-  (interactive)
-  "Download and install the latest color-theme. It will overwrite
-exsited local version without asking"
-  (url-copy-file "http://ftp.twaren.net/Unix/NonGNU/color-theme/color-theme.el.gz" "~/.emacs.d/site-lisp/color-theme.el.gz" t)
-  (byte-compile-file "~/.emacs.d/site-lisp/color-theme.el.gz"))
-
-(defun my-update-all-required-packages (&optional not-confirm)
-  "Downlaond and install all required packages"
-  (interactive)
-  (if (not (file-exists-p "~/.emacs.d/site-lisp/auto-install.el"))
-      (progn
-        (url-copy-file "http://www.emacswiki.org/emacs/download/auto-install.el" "~/.emacs.d/site-lisp/auto-install.el")
-        (byte-compile-file "~/.emacs.d/site-lisp/auto-install.el")))
-  (my-update-packages-from-emacswiki (not not-confirm))
-  (my-update-color-theme)
-  (my-update-packages-from-url (not not-confirm)))
-
-(if (not (file-exists-p "~/.emacs.d/site-lisp/auto-install.el"))
-    (my-update-all-required-packages t))
+(my-download-packages-from-emacswiki)
+(my-download-color-theme)
