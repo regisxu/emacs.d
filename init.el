@@ -154,7 +154,7 @@ If p is negative, move up, otherwise, move down."
 
 ;; configure whitespace-mode
 (require 'whitespace)
-(setq whitespace-style '(trailing tabs indentation space-after-tab space-before-tab))
+(setq whitespace-style '(face trailing tabs indentation space-after-tab space-before-tab))
 
 (setq my-hook-list-for-whitespace
       (list 'c-mode-hook
