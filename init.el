@@ -13,7 +13,7 @@
 ;; set key ctrl-z is set mark
 (global-set-key (kbd "C-z") 'set-mark-command)
 
-;; set key M-. for  hippie-expand
+;; set key M-. for hippie-expand
 (global-set-key (kbd "C-.") 'hippie-expand)
 
 ;; set key C-x C-b for bs-show
@@ -178,18 +178,17 @@ by using nxml's indentation rules."
 (setq whitespace-style '(face trailing tabs indentation space-after-tab space-before-tab))
 
 (setq my-hook-list-for-whitespace
-      (list 'c-mode-hook
-            'c++-mode-hook
-            'java-mode-hook
-            'emacs-lisp-mode-hook
-            'nxml-mode-hook
-            'shell-script-mode-hook
-            'diff-mode-hook))
+      '(c-mode-hook
+        c++-mode-hook
+        java-mode-hook
+        emacs-lisp-mode-hook
+        nxml-mode-hook
+        shell-script-mode-hook
+        diff-mode-hook))
 
 (setq my-hook-for-whitespace '(lambda()
                                 (setq indent-tabs-mode nil)
-                                (whitespace-mode t)
-                                ))
+                                (whitespace-mode t)))
 
 (dolist (value my-hook-list-for-whitespace)
   (add-hook value my-hook-for-whitespace))
@@ -207,7 +206,7 @@ by using nxml's indentation rules."
 
 (mouse-avoidance-mode 'animate)
 
-(setq frame-title-format "%f    size:%I")
+(setq frame-title-format "%f size:%I")
 
 (toggle-truncate-lines 1)
 
@@ -256,7 +255,7 @@ by using nxml's indentation rules."
 ;; only show y-or-n
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; ignore case for  mini-buffer completion
+;; ignore case for mini-buffer completion
 (setq read-buffer-completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
@@ -384,8 +383,8 @@ Also returns nil if pid is nil."
 
 ;; tab width and indent mode should be set in Custom,
 ;; otherwise they automatically becomes buffer-local
-                                        ;(setq tab-width 4)
-                                        ;(setq indent-tabs-mode nil)
+;(setq tab-width 4)
+;(setq indent-tabs-mode nil)
 
 (setq hippie-expand-try-functions-list
       '(try-expand-dabbrev
