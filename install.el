@@ -1,4 +1,4 @@
-(setq my-packages-from-emacswiki '("browse-kill-ring.el" "htmlize.el" "dired+.el"))
+(setq my-packages-from-emacswiki '("browse-kill-ring.el" "htmlize.el" "dired+.el" "batch-mode.el"))
 
 (defun my-download-packages-from-emacswiki ()
   (dolist (file-name my-packages-from-emacswiki)

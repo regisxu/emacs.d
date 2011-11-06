@@ -190,8 +190,7 @@ by using nxml's indentation rules."
                                 (setq indent-tabs-mode nil)
                                 (whitespace-mode t)))
 
-(dolist (value my-hook-list-for-whitespace)
-  (add-hook value my-hook-for-whitespace))
+(mapcar (lambda (hook) (add-hook hook my-hook-for-whitespace)) my-hook-list-for-whitespace)
 
 ;;-------------------------------------customize option--------------------------------
 
@@ -350,6 +349,15 @@ Also returns nil if pid is nil."
 (require 'uniquify)
 
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+
+;; load smex
+(require 'smex)
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+;; This is old M-x.
+(global-set-key (kbd "C-c M-x") 'execute-extended-command)
+(setq smex-save-file "~/.emacs.d/.smex-items")
+(setq smex-history-length 10)
 
 (custom-set-faces
   ;; custom-set-faces was added by Custom.

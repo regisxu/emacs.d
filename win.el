@@ -18,6 +18,17 @@
 
 (setq dired-listing-switches "-lh")
 
+(setq auto-mode-alist
+      (append
+       (list (cons "\\.[bB][aA][tT]$" 'bat-mode))
+       (list (cons "\\.[cC][mM][dD]$" 'bat-mode))
+       auto-mode-alist))
+
+(autoload 'bat-mode "bat-mode"
+     "DOS and Windows BAT files" t)
+
+(setq tramp-default-method "plink")
+
 ;; Add muse to load-path
 (add-to-list 'load-path "~/.emacs.d/site-lisp/win/muse-3.12/lisp")
 
