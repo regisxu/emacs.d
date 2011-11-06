@@ -31,6 +31,12 @@
                               (newline)
                               (indent-according-to-mode)))
 
+(defun my-shell-command-on-file ()
+  "Run shell command on current file"
+  (interactive)
+  (setq command (read-from-minibuffer "Shell Command: "))
+  (shell-command (concat command " " (buffer-file-name))))
+
 ;; recursively find file
 ;; TODO select word at point as file name
 ;; TODO add history
@@ -144,6 +150,21 @@ If p is negative, move up, otherwise, move down."
           (if this-win-2nd (other-window 1))))))
 (global-set-key (kbd "C-=") 'toggle-window-split)
 
+(defun my-pretty-print-xml-region (begin end)
+  "Pretty format XML markup in region. You need to have nxml-mode
+http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do
+this.  The function inserts linebreaks to separate tags that have
+nothing but whitespace between them.  It then indents the markup
+by using nxml's indentation rules."
+  (interactive "r")
+  (save-excursion
+      (nxml-mode)
+      (goto-char begin)
+      ;; TODO match point should be less than end, use nxml-down-element
+      (while (search-forward-regexp "\>[ \\t]*\<" nil t)
+        (backward-char) (insert "\n"))
+      (indent-region begin end))
+    (message "Ah, much better!"))
 
 ;; set key for hs-minor-mode
 (add-hook 'hs-minor-mode-hook
@@ -273,6 +294,7 @@ If p is negative, move up, otherwise, move down."
             ))
 
 (require 'desktop)
+(setq desktop-dirname "~/.emacs.d")
 ;; automatically overriding stale desktop lock
 (defun emacs-process-p (pid)
   "If pid is the process ID of an emacs process, return t, else nil.
@@ -290,7 +312,12 @@ Also returns nil if pid is nil."
     (setq ad-return-value nil)))
 
 (desktop-save-mode t)
-(add-hook 'auto-save-hook 'desktop-save-in-desktop-dir)
+(defun my-desktop-save ()
+  (interactive)
+  ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
+  (if (eq (desktop-owner) (emacs-pid))
+      (desktop-save desktop-dirname)))
+(add-hook 'auto-save-hook 'my-desktop-save)
 
 (setq header-line-format nil)
 
@@ -395,6 +422,7 @@ Also returns nil if pid is nil."
  '(fill-column 80)
  '(global-font-lock-mode t nil (font-lock))
  '(gnus-default-charset (quote cn-gb-2312))
+ '(grep-find-ignored-files (quote (".#*" "*.o" "*~" "*.bin" "*.bak" "*.obj" "*.map" "*.ico" "*.pif" "*.lnk" "*.a" "*.ln" "*.blg" "*.bbl" "*.dll" "*.drv" "*.vxd" "*.elc" "*.idx" "*.class")))
  '(ido-auto-merge-work-directories-length -1)
  '(line-number-display-limit nil)
  '(nxml-child-indent 4)
