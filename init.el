@@ -161,10 +161,46 @@ by using nxml's indentation rules."
       (nxml-mode)
       (goto-char begin)
       ;; TODO match point should be less than end, use nxml-down-element
-      (while (search-forward-regexp "\>[ \\t]*\<" nil t)
-        (backward-char) (insert "\n"))
-      (indent-region begin end))
+      (while (search-forward-regexp "\>[ \\t]*\<" end t)
+        (backward-char)
+        (insert "\n")
+        (setq end (+ end 1)))
+      (indent-region begin end)
+      (delete-trailing-whitespace))
     (message "Ah, much better!"))
+
+(defun my-escape-xml-region (begin end)
+  "Only replace \"<\" and \">\" with \"&lt;\" and \"&gt;\""
+  (interactive "r")
+  (goto-char begin)
+  (let ((bound end))
+    (while (re-search-forward "[<>]" bound t)
+      (replace-match (if (string= "<" (match-string 0)) "&lt;" "&gt;")
+                     nil nil)
+      (setq bound (+ bound 3)))))
+
+(defun my-unescape-xml-region (begin end)
+  "Only replace \"&lt;\" and \"&gt;\" with \"<\" and \">\""
+  (interactive "r")
+  (goto-char begin)
+  (let ((bound end))
+    (while (re-search-forward "&[lg]t;" bound t)
+      (replace-match (if (string= "&lt;" (match-string 0)) "<" ">")
+                     nil nil)
+      (setq bound (- bound 3)))))
+
+(defun my-do-lisp-on-marked-files ()
+  (interactive)
+  (let ((exp (read)))
+    (dolist (file (dired-get-marked-files))
+      (find-file file)
+      (eval exp))))
+
+(defun my-do-command-on-marked-files (symbole)
+  (interactive "C")
+  (dolist (file (dired-get-marked-files))
+    (find-file file)
+    (call-interactively symbole)))
 
 ;; set key for hs-minor-mode
 (add-hook 'hs-minor-mode-hook
@@ -172,6 +208,8 @@ by using nxml's indentation rules."
              (define-key hs-minor-mode-map (kbd "C-c b") 'hs-toggle-hiding)
              (define-key hs-minor-mode-map (kbd "C-c l") 'hs-hide-level)))
 
+;; hide-lines mode
+(autoload 'hide-lines "hide-lines" "Hide lines based on a regexp" t)
 
 ;; configure whitespace-mode
 (require 'whitespace)
@@ -189,6 +227,9 @@ by using nxml's indentation rules."
 (setq my-hook-for-whitespace '(lambda()
                                 (setq indent-tabs-mode nil)
                                 (whitespace-mode t)))
+
+(dolist (value my-hook-list-for-whitespace)
+  (add-hook value my-hook-for-whitespace))
 
 (mapcar (lambda (hook) (add-hook hook my-hook-for-whitespace)) my-hook-list-for-whitespace)
 
@@ -290,32 +331,6 @@ by using nxml's indentation rules."
             (load "dired+")
             ;; Set dired+ global variables here.
             ))
-
-(require 'desktop)
-(setq desktop-dirname "~/.emacs.d")
-;; automatically overriding stale desktop lock
-(defun emacs-process-p (pid)
-  "If pid is the process ID of an emacs process, return t, else nil.
-Also returns nil if pid is nil."
-  (when pid
-    (let ((attributes (process-attributes pid)) (cmd))
-      (dolist (attr attributes)
-        (if (string= "comm" (car attr))
-            (setq cmd (cdr attr))))
-      (if (and cmd (or (string= "emacs" cmd) (string= "emacs.exe" cmd))) t))))
-
-(defadvice desktop-owner (after pry-from-cold-dead-hands activate)
-  "Don't allow dead emacsen to own the desktop file."
-  (when (not (emacs-process-p ad-return-value))
-    (setq ad-return-value nil)))
-
-(desktop-save-mode t)
-(defun my-desktop-save ()
-  (interactive)
-  ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
-  (if (eq (desktop-owner) (emacs-pid))
-      (desktop-save desktop-dirname)))
-(add-hook 'auto-save-hook 'my-desktop-save)
 
 (setq header-line-format nil)
 

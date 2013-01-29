@@ -8,15 +8,11 @@
 (require 'color-theme)
 (color-theme-gnome2)
 
-;; erlang mode
-(setq erlang-root-dir "c:/other/erl5.6")
-(setq exec-path (cons "C:/other/erl5.6/bin" exec-path))
-(require 'erlang-start)
-
 ;; start emacs server
 (server-start)
 
-(setq dired-listing-switches "-lh")
+(setq dired-listing-switches "-lha")
+
 
 (setq auto-mode-alist
       (append
@@ -28,6 +24,32 @@
      "DOS and Windows BAT files" t)
 
 (setq tramp-default-method "plink")
+
+(require 'desktop)
+(setq desktop-dirname "~/.emacs.d")
+;; automatically overriding stale desktop lock
+(defun emacs-process-p (pid)
+  "If pid is the process ID of an emacs process, return t, else nil.
+Also returns nil if pid is nil."
+  (when pid
+    (let ((attributes (process-attributes pid)) (cmd))
+      (dolist (attr attributes)
+        (if (string= "comm" (car attr))
+            (setq cmd (cdr attr))))
+      (if (and cmd (or (string= "emacs" cmd) (string= "emacs.exe" cmd))) t))))
+
+(defadvice desktop-owner (after pry-from-cold-dead-hands activate)
+  "Don't allow dead emacsen to own the desktop file."
+  (when (not (emacs-process-p ad-return-value))
+    (setq ad-return-value nil)))
+
+(desktop-save-mode t)
+(defun my-desktop-save ()
+  (interactive)
+  ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
+  (if (eq (desktop-owner) (emacs-pid))
+      (desktop-save desktop-dirname)))
+(add-hook 'auto-save-hook 'my-desktop-save)
 
 ;; Add muse to load-path
 (add-to-list 'load-path "~/.emacs.d/site-lisp/win/muse-3.12/lisp")
@@ -86,5 +108,3 @@
 </html>")
 (setq muse-html-style-sheet
       "<link rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\" href=\"common.css\" />")
-
-(setq org-agenda-files (quote ("c:/work/TODO.txt")))
