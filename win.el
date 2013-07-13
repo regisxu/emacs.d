@@ -13,14 +13,13 @@
 
 (setq dired-listing-switches "-lha")
 
-
 (setq auto-mode-alist
       (append
-       (list (cons "\\.[bB][aA][tT]$" 'bat-mode))
-       (list (cons "\\.[cC][mM][dD]$" 'bat-mode))
+       (list (cons "\\.[bB][aA][tT]$" 'batch-mode))
+       (list (cons "\\.[cC][mM][dD]$" 'batch-mode))
        auto-mode-alist))
 
-(autoload 'bat-mode "bat-mode"
+(autoload 'batch-mode "batch-mode"
      "DOS and Windows BAT files" t)
 
 (setq tramp-default-method "plink")
@@ -52,7 +51,7 @@ Also returns nil if pid is nil."
 (add-hook 'auto-save-hook 'my-desktop-save)
 
 ;; Add muse to load-path
-(add-to-list 'load-path "~/.emacs.d/site-lisp/win/muse-3.12/lisp")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/win/muse-3.20/lisp")
 
 ;; Load muse
 (require 'muse-mode)
@@ -64,18 +63,17 @@ Also returns nil if pid is nil."
 (muse-index-as-string t t)
 
 (setq muse-project-alist
-      '(("Regis" ("c:/other/wiki/muse"
+      '(("Regis" ("~/wiki/muse"
                   :default "Welcome"
                   :force-publish ("Indexes"))
-         (:base "html" :path "c:/other/wiki/publish"))))
+         (:base "html" :path "~/wiki/publish"))))
 
-(setq muse-html-meta-content-type "text/html; charset=chinese-gb18030")
-(setq muse-html-content-coding "chinese-gb18030")
-(setq muse-html-charset-default "chinese-gb18030")
-(setq muse-html-coding-default "chinese-gb18030")
-(setq muse-html-encoding-default "chinese-gb18030")
+(setq muse-html-meta-content-type "text/html; charset=gb18030")
+;; (setq muse-html-content-coding "gb18030")
+;; (setq muse-html-charset-default "gb18030")
+;; (setq muse-html-coding-default "gb18030")
+;; (setq muse-html-encoding-default "gb18030")
 
-(setq muse-html-encoding-default (quote chinese-gb18030))
 (setq muse-html-footer "
     <!-- Page published by Emacs Muse ends here -->
     <br></br>
