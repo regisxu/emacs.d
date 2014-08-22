@@ -202,6 +202,18 @@ by using nxml's indentation rules."
     (find-file file)
     (call-interactively symbole)))
 
+(defun my-remote-log (env role)
+  (interactive "Menv: \nMrole: ")
+  (let ((bname (concat "*remote-log-" env "-" role "*"))
+        (p (start-process "Shell" "*remote-log*" "sh" "rlog" env role)))
+    (progn
+      (switch-to-buffer (process-buffer p))
+      (rename-buffer (concat "*remote-log-" (number-to-string (process-id p)) "-" env "-" role "*"))
+      (comint-mode)
+;      (async-shell-command (concat "sh rlog " env " " role) bname bname)
+      (add-hook 'comint-output-filter-functions 'comint-truncate-buffer)
+      (setq comint-buffer-maximum-size 50000))))
+
 ;; set key for hs-minor-mode
 (add-hook 'hs-minor-mode-hook
           '(lambda()
