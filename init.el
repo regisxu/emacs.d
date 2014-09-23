@@ -386,6 +386,9 @@ by using nxml's indentation rules."
 (setq smex-save-file "~/.emacs.d/.smex-items")
 (setq smex-history-length 10)
 
+(require 'auto-complete-config)
+(ac-config-default)
+
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
