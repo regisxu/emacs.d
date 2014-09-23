@@ -1,4 +1,11 @@
 ;;-----------------------------start my environment----------------------------------
+(require 'package)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+(package-initialize)
 
 (global-set-key [delete] 'delete-char)
 (global-set-key [kp-delete] 'delete-char)
