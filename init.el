@@ -461,6 +461,7 @@ by using nxml's indentation rules."
  '(gnus-default-charset (quote cn-gb-2312))
  '(grep-find-ignored-files (quote (".#*" "*.o" "*~" "*.bin" "*.bak" "*.obj" "*.map" "*.ico" "*.pif" "*.lnk" "*.a" "*.ln" "*.blg" "*.bbl" "*.dll" "*.drv" "*.vxd" "*.elc" "*.idx" "*.class")))
  '(ido-auto-merge-work-directories-length -1)
+ '(indent-tabs-mode nil)
  '(line-number-display-limit nil)
  '(nxml-child-indent 4)
  '(nxml-slash-auto-complete-flag t)
