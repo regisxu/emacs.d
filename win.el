@@ -3,7 +3,7 @@
                  load-path))
 
 ;; Font settings
-(set-default-font "Bitstream Vera Sans Mono-14")
+(set-default-font "Bitstream Vera Sans Mono-15")
 
 (require 'color-theme)
 (color-theme-gnome2)
