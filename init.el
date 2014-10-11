@@ -252,6 +252,23 @@ by using nxml's indentation rules."
 
 (mapcar (lambda (hook) (add-hook hook my-hook-for-whitespace)) my-hook-list-for-whitespace)
 
+(defun restclient-http-do (method url headers entity raw)
+  (let ((command (restclient-build-command method url headers entity)))
+    (async-shell-command command "*HTTP Response*" "*HTTP Error Response*")))
+
+(defun restclient-build-command (method url headers entity)
+  (let ((command "curl -k -i -S -s ")
+        (data (replace-regexp-in-string "\\`[ \t\n]*" "" (replace-regexp-in-string "[ \t\n]*\\'" "" entity))))
+    (concat command "-X " method " "
+            (concat-list headers)
+            (if (string= data "") (concat "--data " "\"" data "\" "))
+            "\"" url "\""
+            )))
+
+(defun concat-list (list)
+  (concat (concat "-H \"" (car (car list)) ":" (cdr (car list)) "\" ")
+          (if (cdr list) (concat-list (cdr list)))))
+
 ;;-------------------------------------customize option--------------------------------
 
 
