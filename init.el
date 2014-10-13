@@ -252,22 +252,30 @@ by using nxml's indentation rules."
 
 (mapcar (lambda (hook) (add-hook hook my-hook-for-whitespace)) my-hook-list-for-whitespace)
 
+;; overwrite restclient-http-do to use curl, emacs url package has issue on https
+;; http://stackoverflow.com/questions/19699294/make-emacs-access-to-https-over-socks-proxy
 (defun restclient-http-do (method url headers entity raw)
   (let ((command (restclient-build-command method url headers entity)))
-    (async-shell-command command "*HTTP Response*" "*HTTP Error Response*")))
+    (message "%s" command)
+    (switch-to-buffer-other-window (get-buffer-create "*HTTP Response*"))
+    (erase-buffer)
+    (json-mode)
+    (set-process-sentinel
+     (apply 'start-process "curl" "*HTTP Response*" "curl" command)
+     'shell-command-sentinel)))
 
 (defun restclient-build-command (method url headers entity)
-  (let ((command "curl -k -i -S -s ")
+  (let ((command (list "-k" "-i" "-S" "-s"))
         (data (replace-regexp-in-string "\\`[ \t\n]*" "" (replace-regexp-in-string "[ \t\n]*\\'" "" entity))))
-    (concat command "-X " method " "
-            (concat-list headers)
-            (if (string= data "") (concat "--data " "\"" data "\" "))
-            "\"" url "\""
-            )))
-
-(defun concat-list (list)
-  (concat (concat "-H \"" (car (car list)) ":" (cdr (car list)) "\" ")
-          (if (cdr list) (concat-list (cdr list)))))
+    (add-to-list 'command "-X" t)
+    (add-to-list 'command method t)
+    (dolist (header headers)
+      (push (concat (car header) ":" (cdr header)) command)
+      (push "-H" command))
+    (if (not (string= data ""))
+        (progn (add-to-list 'command "--data" t)
+               (add-to-list 'command data t)))
+    (add-to-list 'command url t)))
 
 ;;-------------------------------------customize option--------------------------------
 
