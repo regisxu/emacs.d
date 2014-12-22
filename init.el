@@ -255,16 +255,15 @@ by using nxml's indentation rules."
 ;; overwrite restclient-http-do to use curl, emacs url package has issue on https
 ;; http://stackoverflow.com/questions/19699294/make-emacs-access-to-https-over-socks-proxy
 (defun restclient-http-do (method url headers entity raw)
-  (let ((command (restclient-build-command method url headers entity)))
-    (message "%s" command)
+  (let ((curl-args (my-build-curl-args method url headers entity)))
     (switch-to-buffer-other-window (get-buffer-create "*HTTP Response*"))
     (erase-buffer)
-    (json-mode)
+    (insert (concat "curl " (my-curl-args-to-string curl-args) "\n\n"))
     (set-process-sentinel
-     (apply 'start-process "curl" "*HTTP Response*" "curl" command)
+     (apply 'start-process "curl" "*HTTP Response*" "curl" curl-args)
      'shell-command-sentinel)))
 
-(defun restclient-build-command (method url headers entity)
+(defun my-build-curl-args (method url headers entity)
   (let ((command (list "-k" "-i" "-S" "-s"))
         (data (replace-regexp-in-string "\\`[ \t\n]*" "" (replace-regexp-in-string "[ \t\n]*\\'" "" entity))))
     (add-to-list 'command "-X" t)
@@ -276,6 +275,12 @@ by using nxml's indentation rules."
         (progn (add-to-list 'command "--data" t)
                (add-to-list 'command data t)))
     (add-to-list 'command url t)))
+
+(defun my-curl-args-to-string (args)
+  (if args
+      (if (string= "-" (substring (car args) 0 1))
+          (concat (car args) " " (my-curl-args-to-string (cdr args)))
+        (concat "'" (car args) "'" " " (my-curl-args-to-string (cdr args))))))
 
 ;;-------------------------------------customize option--------------------------------
 
