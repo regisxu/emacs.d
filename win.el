@@ -10,6 +10,11 @@
 
 (setq auto-revert-use-notify nil)
 
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (select-frame frame)
+            (set-default-font "Bitstream Vera Sans Mono-15")))
+
 ;; start emacs server
 (server-start)
 

@@ -236,7 +236,8 @@ by using nxml's indentation rules."
         emacs-lisp-mode-hook
         nxml-mode-hook
         shell-script-mode-hook
-        diff-mode-hook))
+        diff-mode-hook
+        json-mode-hook))
 
 (setq my-hook-for-whitespace '(lambda()
                                 (setq indent-tabs-mode nil)
@@ -247,6 +248,7 @@ by using nxml's indentation rules."
 
 (mapcar (lambda (hook) (add-hook hook my-hook-for-whitespace)) my-hook-list-for-whitespace)
 
+(require 'restclient)
 ;; overwrite restclient-http-do to use curl, emacs url package has issue on https
 ;; http://stackoverflow.com/questions/19699294/make-emacs-access-to-https-over-socks-proxy
 (defun restclient-http-do (method url headers entity &rest handle-args)
@@ -511,6 +513,7 @@ by using nxml's indentation rules."
  '(diredp-hide-details-initially-flag nil)
  '(display-buffer-reuse-frames t)
  '(display-time-day-and-date nil)
+ '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(fill-column 80)
  '(global-font-lock-mode t nil (font-lock))
@@ -520,6 +523,7 @@ by using nxml's indentation rules."
     (".#*" "*.o" "*~" "*.bin" "*.bak" "*.obj" "*.map" "*.ico" "*.pif" "*.lnk" "*.a" "*.ln" "*.blg" "*.bbl" "*.dll" "*.drv" "*.vxd" "*.elc" "*.idx" "*.class")))
  '(ido-auto-merge-work-directories-length -1)
  '(indent-tabs-mode nil)
+ '(js-indent-level 2)
  '(line-number-display-limit nil)
  '(nxml-child-indent 4)
  '(nxml-slash-auto-complete-flag t)
