@@ -374,6 +374,26 @@ by using nxml's indentation rules."
             ;; Set dired+ global variables here.
             ))
 
+(require 'bs)
+;; Hack highlight Dired buffer in bs-mode
+;; Fix regexp "^..\\(.*Dired .*\\)$" to "^..\\(.*Dired.*\\)$"
+;; The original one doesn't work with latest dired+ mode
+(setq bs-mode-font-lock-keywords
+  (list ;; header in font-lock-type-face
+   (list (bs--make-header-match-string)
+     '(1 font-lock-type-face append) '(1 'bold append))
+   ;; Buffername embedded by *
+   (list "^\\(.*\\*.*\\*.*\\)$"
+     1
+     ;; problem in XEmacs with font-lock-constant-face
+     (if (facep 'font-lock-constant-face)
+         'font-lock-constant-face
+       'font-lock-comment-face))
+   ;; Dired-Buffers
+   '("^..\\(.*Dired.*\\)$" 1 font-lock-function-name-face)
+   ;; the star for modified buffers
+   '("^.\\(\\*\\) +[^\\*]"     1 font-lock-comment-face)))
+
 (setq header-line-format nil)
 
 ;; accelerate woman
@@ -488,6 +508,7 @@ by using nxml's indentation rules."
  '(c-macro-shrink-window-flag t)
  '(default-input-method "chinese-py-punct")
  '(diff-switches "-u")
+ '(diredp-hide-details-initially-flag nil)
  '(display-buffer-reuse-frames t)
  '(display-time-day-and-date nil)
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
