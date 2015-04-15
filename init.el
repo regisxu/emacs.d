@@ -1,11 +1,6 @@
 ;;-----------------------------start my environment----------------------------------
-(require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
 
-(package-initialize)
+(load-file "~/.emacs.d/install.el")
 
 (global-set-key [delete] 'delete-char)
 (global-set-key [kp-delete] 'delete-char)
@@ -254,7 +249,7 @@ by using nxml's indentation rules."
 
 ;; overwrite restclient-http-do to use curl, emacs url package has issue on https
 ;; http://stackoverflow.com/questions/19699294/make-emacs-access-to-https-over-socks-proxy
-(defun restclient-http-do (method url headers entity raw)
+(defun restclient-http-do (method url headers entity &rest handle-args)
   (let ((curl-args (my-build-curl-args method url headers entity)))
     (switch-to-buffer-other-window (get-buffer-create "*HTTP Response*"))
     (erase-buffer)
@@ -371,8 +366,6 @@ by using nxml's indentation rules."
 
 ;; Language environment
 (set-language-environment "Chinese-GB18030")
-
-(load-file "~/.emacs.d/install.el")
 
 ;; load dired+
 (add-hook 'dired-load-hook
