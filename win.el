@@ -26,7 +26,8 @@
        (list (cons "\\.[cC][mM][dD]$" 'batch-mode))
        auto-mode-alist))
 
-(use-package batch-mode)
+(use-package batch-mode
+  :ensure t)
 
 (setq tramp-default-method "plink")
 

@@ -223,7 +223,8 @@ by using nxml's indentation rules."
              (define-key hs-minor-mode-map (kbd "C-c l") 'hs-hide-level)))
 
 ;; hide-lines mode
-(use-package hide-lines)
+(use-package hide-lines
+  :ensure t)
 
 
 ;; configure whitespace-mode
@@ -250,6 +251,7 @@ by using nxml's indentation rules."
   (setq whitespace-style '(face trailing tabs indentation space-after-tab space-before-tab)))
 
 (use-package restclient
+  :ensure t
   :config
   ;; overwrite restclient-http-do to use curl, emacs url package has issue on https
   ;; http://stackoverflow.com/questions/19699294/make-emacs-access-to-https-over-socks-proxy
@@ -417,10 +419,12 @@ by using nxml's indentation rules."
   (setq ido-dir-file-cache nil))
 
 ;;load htmlize which convert highlight code to html
-(use-package htmlize)
+(use-package htmlize
+  :ensure t)
 
 ;; Convenient To select from kill ring
 (use-package browse-kill-ring
+  :ensure t
   :config
   (browse-kill-ring-default-keybindings)
   ;; don't show duplicates
@@ -435,6 +439,7 @@ by using nxml's indentation rules."
 
 ;; load smex
 (use-package smex
+  :ensure t
   :config
   (smex-initialize)
   (global-set-key (kbd "M-x") 'smex)
@@ -443,7 +448,8 @@ by using nxml's indentation rules."
   (setq smex-save-file "~/.emacs.d/.smex-items")
   (setq smex-history-length 10))
 
-(use-package auto-complete-config
+(use-package auto-complete
+  :ensure t
   :config
   (ac-config-default))
 
