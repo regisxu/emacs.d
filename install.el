@@ -12,7 +12,18 @@
 
 ;; epla managed packages
 (setq my-epla-packages
-  '(smex color-theme auto-complete csv-mode hide-lines json-mode restclient browse-kill-ring htmlize dired+ batch-mode dockerfile-mode))
+      '(smex
+        color-theme
+        auto-complete
+        csv-mode
+        hide-lines
+        json-mode
+        restclient
+        browse-kill-ring
+        htmlize
+        dired+
+        batch-mode
+        dockerfile-mode))
 
 (defun my-install-epla-packages ()
   (interactive)
