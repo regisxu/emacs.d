@@ -226,8 +226,13 @@ by using nxml's indentation rules."
 (use-package hide-lines
   :ensure t)
 
-;;
 (use-package json-mode
+  :ensure t)
+
+(use-package web-mode
+  :ensure t)
+
+(use-package markdown-mode
   :ensure t)
 
 ;; configure whitespace-mode

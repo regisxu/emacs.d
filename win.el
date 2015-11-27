@@ -5,8 +5,11 @@
 ;; Font settings
 (set-default-font "Bitstream Vera Sans Mono-20")
 
-(require 'color-theme)
-(color-theme-gnome2)
+(use-package color-theme
+  :ensure t
+  :init
+  (color-theme-initialize)
+  (color-theme-gnome2))
 
 (setq auto-revert-use-notify nil)
 
@@ -20,14 +23,9 @@
 
 (setq dired-listing-switches "-lha")
 
-(setq auto-mode-alist
-      (append
-       (list (cons "\\.[bB][aA][tT]$" 'batch-mode))
-       (list (cons "\\.[cC][mM][dD]$" 'batch-mode))
-       auto-mode-alist))
-
 (use-package batch-mode
-  :ensure t)
+  :ensure t
+  :mode ("\\.[bB][aA][tT]$" "\\.[cC][mM][dD]$"))
 
 (setq tramp-default-method "plink")
 

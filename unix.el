@@ -6,6 +6,9 @@
             (if server-clients
                 (local-set-key (kbd "C-x C-c") 'server-edit))))
 
+(use-package color-theme
+  :ensure t)
+
 (defun init-window-frame (&optional frame)
   "configurations only for window system, such as color-theme, fonts"
   (select-frame frame)
@@ -13,7 +16,7 @@
       (progn
         (set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-21-*-*-*-m-0-iso10646-1")
         ;; load color-theme
-        (require 'color-theme)
+        (color-theme-initialize)
         (setq color-theme-is-global nil)
         (color-theme-gnome2)
 
