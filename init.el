@@ -237,7 +237,8 @@ by using nxml's indentation rules."
         nxml-mode-hook
         shell-script-mode-hook
         diff-mode-hook
-        json-mode-hook))
+        json-mode-hook
+        web-mode-hook))
 
 (setq my-hook-for-whitespace '(lambda()
                                 (setq indent-tabs-mode nil)
