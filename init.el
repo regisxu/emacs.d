@@ -495,6 +495,8 @@ by using nxml's indentation rules."
     (load-file "~/.emacs.d/win.el")
   (load-file "~/.emacs.d/unix.el"))
 
+(load-file "~/.emacs.d/log.el")
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
