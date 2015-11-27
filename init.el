@@ -223,62 +223,63 @@ by using nxml's indentation rules."
              (define-key hs-minor-mode-map (kbd "C-c l") 'hs-hide-level)))
 
 ;; hide-lines mode
-(autoload 'hide-lines "hide-lines" "Hide lines based on a regexp" t)
+(use-package hide-lines)
+
 
 ;; configure whitespace-mode
-(require 'whitespace)
-(setq whitespace-style '(face trailing tabs indentation space-after-tab space-before-tab))
+(use-package whitespace
+  :init
+  (setq my-hook-list-for-whitespace
+        '(c-mode-hook
+          c++-mode-hook
+          java-mode-hook
+          emacs-lisp-mode-hook
+          nxml-mode-hook
+          shell-script-mode-hook
+          diff-mode-hook
+          json-mode-hook
+          web-mode-hook))
 
-(setq my-hook-list-for-whitespace
-      '(c-mode-hook
-        c++-mode-hook
-        java-mode-hook
-        emacs-lisp-mode-hook
-        nxml-mode-hook
-        shell-script-mode-hook
-        diff-mode-hook
-        json-mode-hook
-        web-mode-hook))
+  (setq my-hook-for-whitespace '(lambda()
+                                  (setq indent-tabs-mode nil)
+                                  (whitespace-mode t)))
 
-(setq my-hook-for-whitespace '(lambda()
-                                (setq indent-tabs-mode nil)
-                                (whitespace-mode t)))
+  (mapcar (lambda (hook) (add-hook hook my-hook-for-whitespace)) my-hook-list-for-whitespace)
 
-(dolist (value my-hook-list-for-whitespace)
-  (add-hook value my-hook-for-whitespace))
+  :config
+  (setq whitespace-style '(face trailing tabs indentation space-after-tab space-before-tab)))
 
-(mapcar (lambda (hook) (add-hook hook my-hook-for-whitespace)) my-hook-list-for-whitespace)
+(use-package restclient
+  :config
+  ;; overwrite restclient-http-do to use curl, emacs url package has issue on https
+  ;; http://stackoverflow.com/questions/19699294/make-emacs-access-to-https-over-socks-proxy
+  (defun restclient-http-do (method url headers entity &rest handle-args)
+    (let ((curl-args (my-build-curl-args method url headers entity)))
+      (switch-to-buffer-other-window (get-buffer-create "*HTTP Response*"))
+      (erase-buffer)
+      (insert (concat "curl " (my-curl-args-to-string curl-args) "\n\n"))
+      (set-process-sentinel
+       (apply 'start-process "curl" "*HTTP Response*" "curl" curl-args)
+       'shell-command-sentinel)))
 
-(require 'restclient)
-;; overwrite restclient-http-do to use curl, emacs url package has issue on https
-;; http://stackoverflow.com/questions/19699294/make-emacs-access-to-https-over-socks-proxy
-(defun restclient-http-do (method url headers entity &rest handle-args)
-  (let ((curl-args (my-build-curl-args method url headers entity)))
-    (switch-to-buffer-other-window (get-buffer-create "*HTTP Response*"))
-    (erase-buffer)
-    (insert (concat "curl " (my-curl-args-to-string curl-args) "\n\n"))
-    (set-process-sentinel
-     (apply 'start-process "curl" "*HTTP Response*" "curl" curl-args)
-     'shell-command-sentinel)))
+  (defun my-build-curl-args (method url headers entity)
+    (let ((command (list "-k" "-i" "-S" "-s"))
+          (data (replace-regexp-in-string "\\`[ \t\n]*" "" (replace-regexp-in-string "[ \t\n]*\\'" "" entity))))
+      (add-to-list 'command "-X" t)
+      (add-to-list 'command method t)
+      (dolist (header headers)
+        (push (concat (car header) ":" (cdr header)) command)
+        (push "-H" command))
+      (if (not (string= data ""))
+          (progn (add-to-list 'command "--data" t)
+                 (add-to-list 'command data t)))
+      (add-to-list 'command url t)))
 
-(defun my-build-curl-args (method url headers entity)
-  (let ((command (list "-k" "-i" "-S" "-s"))
-        (data (replace-regexp-in-string "\\`[ \t\n]*" "" (replace-regexp-in-string "[ \t\n]*\\'" "" entity))))
-    (add-to-list 'command "-X" t)
-    (add-to-list 'command method t)
-    (dolist (header headers)
-      (push (concat (car header) ":" (cdr header)) command)
-      (push "-H" command))
-    (if (not (string= data ""))
-        (progn (add-to-list 'command "--data" t)
-               (add-to-list 'command data t)))
-    (add-to-list 'command url t)))
-
-(defun my-curl-args-to-string (args)
-  (if args
-      (if (string= "-" (substring (car args) 0 1))
-          (concat (car args) " " (my-curl-args-to-string (cdr args)))
-        (concat "'" (car args) "'" " " (my-curl-args-to-string (cdr args))))))
+  (defun my-curl-args-to-string (args)
+    (if args
+        (if (string= "-" (substring (car args) 0 1))
+            (concat (car args) " " (my-curl-args-to-string (cdr args)))
+          (concat "'" (car args) "'" " " (my-curl-args-to-string (cdr args)))))))
 
 ;;-------------------------------------customize option--------------------------------
 
@@ -377,25 +378,26 @@ by using nxml's indentation rules."
             ;; Set dired+ global variables here.
             ))
 
-(require 'bs)
-;; Hack highlight Dired buffer in bs-mode
-;; Fix regexp "^..\\(.*Dired .*\\)$" to "^..\\(.*Dired.*\\)$"
-;; The original one doesn't work with latest dired+ mode
-(setq bs-mode-font-lock-keywords
-  (list ;; header in font-lock-type-face
-   (list (bs--make-header-match-string)
-     '(1 font-lock-type-face append) '(1 'bold append))
-   ;; Buffername embedded by *
-   (list "^\\(.*\\*.*\\*.*\\)$"
-     1
-     ;; problem in XEmacs with font-lock-constant-face
-     (if (facep 'font-lock-constant-face)
-         'font-lock-constant-face
-       'font-lock-comment-face))
-   ;; Dired-Buffers
-   '("^..\\(.*Dired.*\\)$" 1 font-lock-function-name-face)
-   ;; the star for modified buffers
-   '("^.\\(\\*\\) +[^\\*]"     1 font-lock-comment-face)))
+(use-package bs
+  :config
+  ;; Hack highlight Dired buffer in bs-mode
+  ;; Fix regexp "^..\\(.*Dired .*\\)$" to "^..\\(.*Dired.*\\)$"
+  ;; The original one doesn't work with latest dired+ mode
+  (setq bs-mode-font-lock-keywords
+        (list ;; header in font-lock-type-face
+         (list (bs--make-header-match-string)
+               '(1 font-lock-type-face append) '(1 'bold append))
+         ;; Buffername embedded by *
+         (list "^\\(.*\\*.*\\*.*\\)$"
+               1
+               ;; problem in XEmacs with font-lock-constant-face
+               (if (facep 'font-lock-constant-face)
+                   'font-lock-constant-face
+                 'font-lock-comment-face))
+         ;; Dired-Buffers
+         '("^..\\(.*Dired.*\\)$" 1 font-lock-function-name-face)
+         ;; the star for modified buffers
+         '("^.\\(\\*\\) +[^\\*]"     1 font-lock-comment-face))))
 
 (setq header-line-format nil)
 
@@ -407,40 +409,43 @@ by using nxml's indentation rules."
 (setq woman-use-own-frame nil)
 
 ;; load ido
-(require 'ido)
-(ido-mode t)
-(ido-everywhere t)
-(setq ido-auto-merge-work-directories-length -1)
-
-(setq ido-dir-file-cache nil)
+(use-package ido
+  :config
+  (ido-mode t)
+  (ido-everywhere t)
+  (setq ido-auto-merge-work-directories-length -1)
+  (setq ido-dir-file-cache nil))
 
 ;;load htmlize which convert highlight code to html
-(require 'htmlize)
+(use-package htmlize)
 
 ;; Convenient To select from kill ring
-(require 'browse-kill-ring)
-(browse-kill-ring-default-keybindings)
-;; don't show duplicates
-(setq browse-kill-ring-display-duplicates nil)
+(use-package browse-kill-ring
+  :config
+  (browse-kill-ring-default-keybindings)
+  ;; don't show duplicates
+  (setq browse-kill-ring-display-duplicates nil))
 
 (setq tramp-default-method "ssh")
 
 ;; load uniquify
-(require 'uniquify)
-
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+(use-package uniquify
+  :config
+  (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
 ;; load smex
-(require 'smex)
-(smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
-;; This is old M-x.
-(global-set-key (kbd "C-c M-x") 'execute-extended-command)
-(setq smex-save-file "~/.emacs.d/.smex-items")
-(setq smex-history-length 10)
+(use-package smex
+  :config
+  (smex-initialize)
+  (global-set-key (kbd "M-x") 'smex)
+  ;; This is old M-x.
+  (global-set-key (kbd "C-c M-x") 'execute-extended-command)
+  (setq smex-save-file "~/.emacs.d/.smex-items")
+  (setq smex-history-length 10))
 
-(require 'auto-complete-config)
-(ac-config-default)
+(use-package auto-complete-config
+  :config
+  (ac-config-default))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

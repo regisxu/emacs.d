@@ -32,6 +32,8 @@
       (message "Installing package %s" p)
       (package-install p))))
 
+(require 'use-package)
+
 ;; old install way
 ;; (setq my-packages-from-emacswiki '("browse-kill-ring.el" "htmlize.el" "dired+.el" "batch-mode.el"))
 ;; (setq my-site-lisp-location "~/.emacs.d/site-lisp/")
