@@ -226,6 +226,9 @@ by using nxml's indentation rules."
 (use-package hide-lines
   :ensure t)
 
+;;
+(use-package json-mode
+  :ensure t)
 
 ;; configure whitespace-mode
 (use-package whitespace
@@ -374,11 +377,20 @@ by using nxml's indentation rules."
 (set-language-environment "Chinese-GB18030")
 
 ;; load dired+
-(add-hook 'dired-load-hook
-          (lambda ()
-            (load "dired+")
-            ;; Set dired+ global variables here.
-            ))
+(use-package dired+
+  :ensure t
+  :init
+  (add-hook 'dired-load-hook
+            (lambda ()
+              (load "dired+")
+              ;; Set dired+ global variables here.
+              )))
+
+(use-package dockerfile-mode
+  :ensure t)
+
+(use-package csv-mode
+  :ensure t)
 
 (use-package bs
   :config
