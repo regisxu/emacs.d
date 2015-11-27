@@ -21,10 +21,6 @@
 ;; set key C-x C-b for bs-show
 (global-set-key (kbd "C-x C-b") 'bs-show)
 
-;; set global key for org mode
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c l") 'org-store-link)
-
 (global-set-key (kbd "C-c C-t") 'toggle-truncate-lines)
 
 (global-set-key [S-return] '(lambda ()
