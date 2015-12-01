@@ -466,6 +466,9 @@ by using nxml's indentation rules."
   :config
   (ac-config-default))
 
+(use-package logview-mode
+  :ensure t)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -492,7 +495,10 @@ by using nxml's indentation rules."
  '(diredp-no-priv ((t (:foreground "light grey"))))
  '(diredp-rare-priv ((t (:foreground "spring green"))))
  '(diredp-read-priv ((t (:foreground "medium aquamarine"))))
- '(diredp-write-priv ((t (:foreground "orchid")))))
+ '(diredp-write-priv ((t (:foreground "orchid"))))
+ '(logview-debug-entry ((t nil)) t)
+ '(logview-information-entry ((t nil)))
+ '(logview-level-debug ((t (:inherit font-lock-comment-face))) t))
 
 ;;--------------------configure program environment------------------------------------
 
@@ -552,6 +558,13 @@ by using nxml's indentation rules."
  '(indent-tabs-mode nil)
  '(js-indent-level 2)
  '(line-number-display-limit nil)
+ '(logview-additional-submodes
+   (quote
+    (("stubhub"
+      (format . "TIMESTAMP [NAME] priority=LEVEL THREAD thread=THREAD ")
+      (levels . "SLF4J")
+      (timestamp)
+      (aliases)))))
  '(nxml-child-indent 4)
  '(nxml-slash-auto-complete-flag t)
  '(show-paren-mode t nil (paren))
