@@ -48,6 +48,8 @@ Also returns nil if pid is nil."
     (setq ad-return-value nil)))
 
 (desktop-save-mode t)
+(setq desktop-restore-eager 50)
+
 (defun my-desktop-save ()
   (interactive)
   ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
