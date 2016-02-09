@@ -466,7 +466,7 @@ by using nxml's indentation rules."
   :config
   (ac-config-default))
 
-(use-package logview-mode
+(use-package logview
   :ensure t)
 
 (custom-set-faces
