@@ -372,6 +372,7 @@ by using nxml's indentation rules."
 
 ;; don't display vertical scroll bar
 (scroll-bar-mode -1)
+(horizontal-scroll-bar-mode -1)
 
 (setq scroll-step 1
       scroll-margin 5
