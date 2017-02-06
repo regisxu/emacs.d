@@ -219,6 +219,10 @@ by using nxml's indentation rules."
       (add-hook 'comint-output-filter-functions 'comint-truncate-buffer)
       (setq comint-buffer-maximum-size 50000))))
 
+(defun dos2unix ()
+  (interactive)
+  (set-buffer-file-coding-system 'unix 't))
+
 ;; set key for hs-minor-mode
 (add-hook 'hs-minor-mode-hook
           '(lambda()
