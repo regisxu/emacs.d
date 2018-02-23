@@ -223,12 +223,6 @@ by using nxml's indentation rules."
   (interactive)
   (set-buffer-file-coding-system 'unix 't))
 
-;; set key for hs-minor-mode
-(add-hook 'hs-minor-mode-hook
-          '(lambda()
-             (define-key hs-minor-mode-map (kbd "C-c b") 'hs-toggle-hiding)
-             (define-key hs-minor-mode-map (kbd "C-c l") 'hs-hide-level)))
-
 ;; hide-lines mode
 (use-package hide-lines
   :ensure t)
@@ -239,7 +233,7 @@ by using nxml's indentation rules."
 (use-package web-mode
   :ensure t)
 
-(use-package markdown-mode
+(use-package jsx-mode
   :ensure t)
 
 (use-package markdown-mode
@@ -261,6 +255,7 @@ by using nxml's indentation rules."
           shell-script-mode-hook
           diff-mode-hook
           json-mode-hook
+          js-mode-hook
           web-mode-hook))
 
   (setq my-hook-for-whitespace '(lambda()
@@ -488,6 +483,27 @@ by using nxml's indentation rules."
 (use-package logview
   :ensure t)
 
+(use-package hideshow
+  :ensure t
+  :bind ("C-c C-f" . hs-toggle-hiding)
+  :config
+  (add-to-list 'hs-special-modes-alist
+               '(nxml-mode
+                 "<!--\\|<[^/>]*[^/]>"
+                 "-->\\|</[^/>]*[^/]>"
+                 "<!--"
+                 sgml-skip-tag-forward
+                 nil))
+  (add-hook 'nxml-mode-hook 'hs-minor-mode)
+  (add-hook 'c-mode-common-hook   'hs-minor-mode)
+  (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+  (add-hook 'java-mode-hook       'hs-minor-mode)
+  (add-hook 'lisp-mode-hook       'hs-minor-mode)
+  (add-hook 'perl-mode-hook       'hs-minor-mode)
+  (add-hook 'js-mode-hook       'hs-minor-mode)
+  (define-key nxml-mode-map (kbd "C-c C-f") 'hs-toggle-hiding)
+  (define-key json-mode-map (kbd "C-c C-f") 'hs-toggle-hiding))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -586,10 +602,13 @@ by using nxml's indentation rules."
       (aliases)))))
  '(nxml-child-indent 4)
  '(nxml-slash-auto-complete-flag t)
+ '(package-selected-packages
+   (quote
+    (origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme browse-kill-ring beacon batch-mode auto-complete)))
+ '(select-enable-clipboard t)
  '(show-paren-mode t nil (paren))
  '(tab-width 4)
  '(transient-mark-mode t)
- '(warning-suppress-types (quote ((\(undo\ discard-info\)) nil)))
- '(x-select-enable-clipboard t))
+ '(warning-suppress-types (quote ((\(undo\ discard-info\)) nil))))
 
 
