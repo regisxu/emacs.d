@@ -473,7 +473,7 @@ by using nxml's indentation rules."
   ;; This is old M-x.
   (global-set-key (kbd "C-c M-x") 'execute-extended-command)
   (setq smex-save-file "~/.emacs.d/.smex-items")
-  (setq smex-history-length 10))
+  (setq smex-history-length 50))
 
 (use-package auto-complete
   :ensure t
@@ -500,9 +500,17 @@ by using nxml's indentation rules."
   (add-hook 'java-mode-hook       'hs-minor-mode)
   (add-hook 'lisp-mode-hook       'hs-minor-mode)
   (add-hook 'perl-mode-hook       'hs-minor-mode)
-  (add-hook 'js-mode-hook       'hs-minor-mode)
+  (add-hook 'js-mode-hook         'hs-minor-mode)
   (define-key nxml-mode-map (kbd "C-c C-f") 'hs-toggle-hiding)
   (define-key json-mode-map (kbd "C-c C-f") 'hs-toggle-hiding))
+
+(use-package ag
+  :ensure t
+)
+
+(use-package swiper
+  :ensure t
+)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -604,7 +612,7 @@ by using nxml's indentation rules."
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
    (quote
-    (origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme browse-kill-ring beacon batch-mode auto-complete)))
+    (ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme browse-kill-ring beacon batch-mode auto-complete)))
  '(select-enable-clipboard t)
  '(show-paren-mode t nil (paren))
  '(tab-width 4)
