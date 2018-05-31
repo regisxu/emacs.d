@@ -223,6 +223,30 @@ by using nxml's indentation rules."
   (interactive)
   (set-buffer-file-coding-system 'unix 't))
 
+(use-package hideshow
+  :ensure t
+  :bind ("C-c C-f" . hs-toggle-hiding)
+  :config
+  (add-hook 'nxml-mode-hook '(lambda()
+                               (add-to-list 'hs-special-modes-alist
+                                            '(nxml-mode
+                                              "<!--\\|<[^/>]*[^/]>"
+                                              "-->\\|</[^/>]*[^/]>"
+                                              "<!--"
+                                              sgml-skip-tag-forward
+                                              nil))
+                               (hs-minor-mode)
+                               (define-key nxml-mode-map (kbd "C-c C-f")
+                                 'hs-toggle-hiding)))
+  (add-hook 'json-mode-hook '(lambda()
+                               (define-key json-mode-map (kbd "C-c C-f") 'hs-toggle-hiding)))
+  (add-hook 'c-mode-common-hook   'hs-minor-mode)
+  (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+  (add-hook 'java-mode-hook       'hs-minor-mode)
+  (add-hook 'lisp-mode-hook       'hs-minor-mode)
+  (add-hook 'perl-mode-hook       'hs-minor-mode)
+  (add-hook 'js-mode-hook         'hs-minor-mode))
+
 ;; hide-lines mode
 (use-package hide-lines
   :ensure t)
@@ -390,6 +414,7 @@ by using nxml's indentation rules."
 
 ;; Language environment
 (set-language-environment "Chinese-GB18030")
+(prefer-coding-system 'utf-8-unix)
 
 ;; load dired+
 (use-package dired+
@@ -483,34 +508,19 @@ by using nxml's indentation rules."
 (use-package logview
   :ensure t)
 
-(use-package hideshow
-  :ensure t
-  :bind ("C-c C-f" . hs-toggle-hiding)
-  :config
-  (add-to-list 'hs-special-modes-alist
-               '(nxml-mode
-                 "<!--\\|<[^/>]*[^/]>"
-                 "-->\\|</[^/>]*[^/]>"
-                 "<!--"
-                 sgml-skip-tag-forward
-                 nil))
-  (add-hook 'nxml-mode-hook 'hs-minor-mode)
-  (add-hook 'c-mode-common-hook   'hs-minor-mode)
-  (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
-  (add-hook 'java-mode-hook       'hs-minor-mode)
-  (add-hook 'lisp-mode-hook       'hs-minor-mode)
-  (add-hook 'perl-mode-hook       'hs-minor-mode)
-  (add-hook 'js-mode-hook         'hs-minor-mode)
-  (define-key nxml-mode-map (kbd "C-c C-f") 'hs-toggle-hiding)
-  (define-key json-mode-map (kbd "C-c C-f") 'hs-toggle-hiding))
-
 (use-package ag
   :ensure t
-)
+  :config
+  (setq ag-highlight-search t))
 
 (use-package swiper
+  :ensure t)
+
+(use-package powerline
   :ensure t
-)
+  :config
+  (set-face-attribute 'mode-line nil :box nil)
+  (powerline-default-theme))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -541,7 +551,9 @@ by using nxml's indentation rules."
  '(diredp-write-priv ((t (:foreground "orchid"))))
  '(logview-debug-entry ((t nil)) t)
  '(logview-information-entry ((t nil)))
- '(logview-level-debug ((t (:inherit font-lock-comment-face))) t))
+ '(logview-level-debug ((t (:inherit font-lock-comment-face))) t)
+ '(mode-line-buffer-id ((t (:inherit mode-line))))
+ '(mode-line-buffer-id-inactive ((t (:inherit mode-line-inactive)))))
 
 ;;--------------------configure program environment------------------------------------
 
@@ -612,7 +624,8 @@ by using nxml's indentation rules."
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
    (quote
-    (ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme browse-kill-ring beacon batch-mode auto-complete)))
+    (moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme browse-kill-ring beacon batch-mode auto-complete)))
+ '(powerline-display-hud nil)
  '(select-enable-clipboard t)
  '(show-paren-mode t nil (paren))
  '(tab-width 4)
