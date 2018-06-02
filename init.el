@@ -255,7 +255,13 @@ by using nxml's indentation rules."
   :ensure t)
 
 (use-package web-mode
-  :ensure t)
+  :ensure t
+  :init
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  :mode (("\\.html\\'" . web-mode)
+         ("\\.js\\'" . web-mode)))
 
 (use-package jsx-mode
   :ensure t)
@@ -392,9 +398,6 @@ by using nxml's indentation rules."
 
 ;; show column number
 (column-number-mode t)
-
-;; show time
-(display-time)
 
 ;; turn on fill mode
 (auto-fill-mode 1)
