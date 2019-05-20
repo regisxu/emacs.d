@@ -421,7 +421,6 @@ by using nxml's indentation rules."
 
 ;; load dired+
 (use-package dired+
-  :ensure t
   :init
   (add-hook 'dired-load-hook
             (lambda ()
@@ -525,6 +524,9 @@ by using nxml's indentation rules."
   (set-face-attribute 'mode-line nil :box nil)
   (powerline-default-theme))
 
+;; sometime vc-refresh-state is very slow
+(remove-hook 'find-file-hooks 'vc-refresh-state)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -539,6 +541,7 @@ by using nxml's indentation rules."
  '(diredp-deletion ((t (:inherit font-lock-warning-face))))
  '(diredp-deletion-file-name ((t (:inherit font-lock-warning-face))))
  '(diredp-dir-heading ((t (:inherit font-lock-type-face))))
+ '(diredp-dir-name ((t (:inherit font-lock-function-name-face))))
  '(diredp-dir-priv ((t (:inherit font-lock-function-name-face))))
  '(diredp-exec-priv ((t (:foreground "lime green"))))
  '(diredp-executable-tag ((t (:foreground "lime green"))))
@@ -627,7 +630,7 @@ by using nxml's indentation rules."
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
    (quote
-    (moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme browse-kill-ring beacon batch-mode auto-complete)))
+    (indent-tools highlight-indentation moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme browse-kill-ring beacon batch-mode auto-complete)))
  '(powerline-display-hud nil)
  '(select-enable-clipboard t)
  '(show-paren-mode t nil (paren))
