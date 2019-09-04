@@ -312,7 +312,7 @@ by using nxml's indentation rules."
        'shell-command-sentinel)))
 
   (defun my-build-curl-args (method url headers entity)
-    (let ((command (list "-k" "-i" "-S" "-s"))
+    (let ((command (list "--compressed" "-k" "-i" "-S" "-s"))
           (data (replace-regexp-in-string "\\`[ \t\n]*" "" (replace-regexp-in-string "[ \t\n]*\\'" "" entity))))
       (add-to-list 'command "-X" t)
       (add-to-list 'command method t)
