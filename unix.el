@@ -14,7 +14,7 @@
   (select-frame frame)
   (if window-system
       (progn
-        (set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-21-*-*-*-m-0-iso10646-1")
+        (set-default-font "-*-Menlo-normal-normal-normal-*-28-*-*-*-m-0-iso10646-1")
         ;; load color-theme
         (color-theme-initialize)
         (setq color-theme-is-global nil)
@@ -33,6 +33,19 @@
 ;; install color-theme only in window-system
 (add-hook 'after-make-frame-functions 'init-window-frame)
 
+;; (set-default-font "-*-Menlo-normal-normal-normal-*-28-*-*-*-m-0-iso10646-1")
+;; ;; load color-theme
+;; (color-theme-initialize)
+;; (setq color-theme-is-global nil)
+;; (color-theme-gnome2)
+
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(diff-added ((t (:foreground "Green2"))))
+;;  '(diff-removed ((t (:foreground "IndianRed2")))))
 
 (defun sudo-edit (&optional arg)
   (interactive "p")
@@ -44,4 +57,4 @@
   (interactive)
   (find-alternate-file (concat "/sudo:root@localhost:" (buffer-file-name (current-buffer)))))
 
-(setq dired-listing-switches "-alh --group-directories-first")
+(setq dired-listing-switches "-alh")
