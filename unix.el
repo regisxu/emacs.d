@@ -6,8 +6,10 @@
             (if server-clients
                 (local-set-key (kbd "C-x C-c") 'server-edit))))
 
-(use-package color-theme
+(use-package color-theme-modern
   :ensure t)
+(load-theme 'gnome2 t t)
+
 
 (defun init-window-frame (&optional frame)
   "configurations only for window system, such as color-theme, fonts"
@@ -16,9 +18,10 @@
       (progn
         (set-default-font "-*-Menlo-normal-normal-normal-*-28-*-*-*-m-0-iso10646-1")
         ;; load color-theme
-        (color-theme-initialize)
-        (setq color-theme-is-global nil)
-        (color-theme-gnome2)
+        ;(color-theme-initialize)
+        ;(setq color-theme-is-global nil)
+        ;(color-theme-gnome2)
+        (enable-theme 'gnome2)
 
         (custom-set-faces
          ;; custom-set-faces was added by Custom.
