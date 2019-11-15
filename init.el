@@ -558,6 +558,8 @@ by using nxml's indentation rules."
  '(logview-debug-entry ((t nil)) t)
  '(logview-information-entry ((t nil)))
  '(logview-level-debug ((t (:inherit font-lock-comment-face))) t)
+ '(markdown-code-face ((t (:inherit nil))))
+ '(markdown-inline-code-face ((t (:inherit font-lock-constant-face))))
  '(mode-line-buffer-id ((t (:inherit mode-line))))
  '(mode-line-buffer-id-inactive ((t (:inherit mode-line-inactive)))))
 
@@ -582,6 +584,11 @@ by using nxml's indentation rules."
         ))
 
 (setq vc-handled-backends (quote (Git)))
+;; speed up save-buffer function, skip vc operations
+;(setq vc-handled-backends nil)
+;(defun vc-after-save ())
+;(defun vc-before-save ())
+
 
 (if (string= system-type "windows-nt")
     (load-file "~/.emacs.d/win.el")
@@ -594,6 +601,7 @@ by using nxml's indentation rules."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ag-ignore-list (quote ("*\\~")))
  '(c-default-style
    (quote
     ((c-mode . "stroustrup")
