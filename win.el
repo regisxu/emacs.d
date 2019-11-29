@@ -3,7 +3,7 @@
                  load-path))
 
 ;; Font settings
-(set-default-font "Bitstream Vera Sans Mono-23")
+(set-default-font "Bitstream Vera Sans Mono-22")
 
 (use-package color-theme-modern
   :ensure t
