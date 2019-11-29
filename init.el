@@ -583,11 +583,11 @@ by using nxml's indentation rules."
         try-expand-whole-kill
         ))
 
-(setq vc-handled-backends (quote (Git)))
+;(setq vc-handled-backends (quote (Git)))
 ;; speed up save-buffer function, skip vc operations
-;(setq vc-handled-backends nil)
-;(defun vc-after-save ())
-;(defun vc-before-save ())
+(setq vc-handled-backends nil)
+(defun vc-after-save ())
+(defun vc-before-save ())
 
 
 (if (string= system-type "windows-nt")
