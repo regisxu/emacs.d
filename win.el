@@ -3,20 +3,18 @@
                  load-path))
 
 ;; Font settings
-(set-default-font "Bitstream Vera Sans Mono-22")
+(set-default-font "Bitstream Vera Sans Mono-23")
 
-(use-package color-theme
+(use-package color-theme-modern
   :ensure t
   :init
-  (color-theme-initialize)
-  (color-theme-gnome2))
+  (load-theme 'gnome2 t t))
 
 (setq auto-revert-use-notify nil)
 
 (add-hook 'after-make-frame-functions
           (lambda (frame)
-            (select-frame frame)
-            (set-default-font "Bitstream Vera Sans Mono-20")))
+            (select-frame frame)))
 
 ;; start emacs server
 (server-start)

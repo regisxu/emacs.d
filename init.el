@@ -638,7 +638,7 @@ by using nxml's indentation rules."
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
    (quote
-    (indent-tools highlight-indentation moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme-modern browse-kill-ring beacon batch-mode auto-complete)))
+    (indent-tools highlight-indentation powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme-modern browse-kill-ring beacon batch-mode auto-complete)))
  '(powerline-display-hud nil)
  '(select-enable-clipboard t)
  '(show-paren-mode t nil (paren))
