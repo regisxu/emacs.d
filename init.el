@@ -610,6 +610,7 @@ by using nxml's indentation rules."
      (other . "gnu"))))
  '(c-macro-prompt-flag nil)
  '(c-macro-shrink-window-flag t)
+ '(clean-buffer-list-kill-regexps (quote ("\\`\\*Man " "\\`\\*ag")))
  '(default-input-method "chinese-py-punct")
  '(diff-switches "-u")
  '(diredp-hide-details-initially-flag nil)
@@ -634,6 +635,7 @@ by using nxml's indentation rules."
       (levels . "SLF4J")
       (timestamp)
       (aliases)))))
+ '(midnight-mode t)
  '(nxml-child-indent 4)
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
