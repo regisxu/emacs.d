@@ -610,7 +610,11 @@ by using nxml's indentation rules."
      (other . "gnu"))))
  '(c-macro-prompt-flag nil)
  '(c-macro-shrink-window-flag t)
+ '(clean-buffer-list-delay-general 14)
  '(clean-buffer-list-kill-regexps (quote ("\\`\\*Man " "\\`\\*ag")))
+ '(custom-safe-themes
+   (quote
+    ("cb39485fd94dabefc5f2b729b963cbd0bac9461000c57eae454131ed4954a8ac" default)))
  '(default-input-method "chinese-py-punct")
  '(diff-switches "-u")
  '(diredp-hide-details-initially-flag nil)
