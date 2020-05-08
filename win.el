@@ -14,7 +14,10 @@
 
 (add-hook 'after-make-frame-functions
           (lambda (frame)
-            (select-frame frame)))
+            (select-frame frame)
+            (set-default-font "Bitstream Vera Sans Mono-22")
+            ;; maximizing window
+            (w32-send-sys-command #xf030)))
 
 ;; start emacs server
 (server-start)
