@@ -3,8 +3,8 @@
                  load-path))
 
 ;; Font settings
-(set-default-font "Bitstream Vera Sans Mono-24")
-
+(add-to-list 'default-frame-alist
+             '(font . "Bitstream Vera Sans Mono-22"))
 (use-package color-theme
   :ensure t
   :init
@@ -16,7 +16,8 @@
 (add-hook 'after-make-frame-functions
           (lambda (frame)
             (select-frame frame)
-            (set-default-font "Bitstream Vera Sans Mono-20")))
+            (add-to-list 'default-frame-alist
+             '(font . "Bitstream Vera Sans Mono-22"))))
 
 ;; start emacs server
 (server-start)
