@@ -1,9 +1,5 @@
-(setq load-path (append
-                 '("~/.emacs.d/site-lisp/win")
-                 load-path))
-
 ;; Font settings
-(set-default-font "Bitstream Vera Sans Mono-22")
+(set-frame-font "Bitstream Vera Sans Mono-22")
 
 (use-package color-theme-modern
   :ensure t
@@ -15,7 +11,7 @@
 (add-hook 'after-make-frame-functions
           (lambda (frame)
             (select-frame frame)
-            (set-default-font "Bitstream Vera Sans Mono-22")
+            (set-frame-font "Bitstream Vera Sans Mono-22")
             ;; maximizing window
             (w32-send-sys-command #xf030)))
 

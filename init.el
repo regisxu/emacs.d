@@ -251,8 +251,15 @@ by using nxml's indentation rules."
 (use-package hide-lines
   :ensure t)
 
+(defun my-json-print-path ()
+  "my print and kill jq json path"
+  (interactive)
+  (jsons-print-path-jq))
+
 (use-package json-mode
-  :ensure t)
+  :ensure t
+  :bind (:map json-mode-map
+              ("C-c C-p" . my-json-print-path)))
 
 (use-package web-mode
   :ensure t
