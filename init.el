@@ -531,6 +531,16 @@ by using nxml's indentation rules."
   (set-face-attribute 'mode-line nil :box nil)
   (powerline-default-theme))
 
+(use-package yaml-mode
+  :ensure t
+  :mode (("\\.yml\\'" . yaml-mode)
+         ("\\.yaml\\'" . yaml-mode)))
+
+(use-package highlight-indent-guides
+  :ensure t
+  :config
+  (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode))
+
 ;; sometime vc-refresh-state is very slow
 (remove-hook 'find-file-hooks 'vc-refresh-state)
 
@@ -635,6 +645,8 @@ by using nxml's indentation rules."
  '(grep-find-ignored-files
    (quote
     (".#*" "*.o" "*~" "*.bin" "*.bak" "*.obj" "*.map" "*.ico" "*.pif" "*.lnk" "*.a" "*.ln" "*.blg" "*.bbl" "*.dll" "*.drv" "*.vxd" "*.elc" "*.idx" "*.class")))
+ '(highlight-indent-guides-method (quote column))
+ '(highlight-indent-guides-responsive (quote stack))
  '(ido-auto-merge-work-directories-length -1)
  '(indent-tabs-mode nil)
  '(js-indent-level 2)
@@ -651,7 +663,7 @@ by using nxml's indentation rules."
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
    (quote
-    (lua-mode indent-tools highlight-indentation moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme-modern browse-kill-ring beacon batch-mode auto-complete)))
+    (highlight-indent-guides lua-mode indent-tools highlight-indentation moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme-modern browse-kill-ring beacon batch-mode auto-complete)))
  '(powerline-display-hud nil)
  '(select-enable-clipboard t)
  '(show-paren-mode t nil (paren))
