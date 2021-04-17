@@ -539,7 +539,10 @@ by using nxml's indentation rules."
 (use-package highlight-indent-guides
   :ensure t
   :config
-  (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode))
+  (add-hook 'yaml-mode-hook
+            'highlight-indent-guides-mode)
+  (add-hook 'json-mode-hook
+            'highlight-indent-guides-mode))
 
 ;; sometime vc-refresh-state is very slow
 (remove-hook 'find-file-hooks 'vc-refresh-state)
