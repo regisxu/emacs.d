@@ -1,6 +1,6 @@
 ;; Font settings
 (add-to-list 'default-frame-alist
-             '(font . "Bitstream Vera Sans Mono-22"))
+             '(font . "Bitstream Vera Sans Mono-20"))
 
 (use-package color-theme-modern
   :ensure t
@@ -13,7 +13,7 @@
           (lambda (frame)
             (select-frame frame)
             (add-to-list 'default-frame-alist
-             '(font . "Bitstream Vera Sans Mono-22"))
+             '(font . "Bitstream Vera Sans Mono-20"))
             ;; maximizing window
             (w32-send-sys-command #xf030)))
 
