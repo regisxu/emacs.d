@@ -251,8 +251,15 @@ by using nxml's indentation rules."
 (use-package hide-lines
   :ensure t)
 
+(defun my-json-print-path ()
+  "my print and kill jq json path"
+  (interactive)
+  (jsons-print-path-jq))
+
 (use-package json-mode
-  :ensure t)
+  :ensure t
+  :bind (:map json-mode-map
+              ("C-c C-p" . my-json-print-path)))
 
 (use-package web-mode
   :ensure t
@@ -558,6 +565,8 @@ by using nxml's indentation rules."
  '(logview-debug-entry ((t nil)) t)
  '(logview-information-entry ((t nil)))
  '(logview-level-debug ((t (:inherit font-lock-comment-face))) t)
+ '(markdown-code-face ((t (:inherit nil))))
+ '(markdown-inline-code-face ((t (:inherit font-lock-constant-face))))
  '(mode-line-buffer-id ((t (:inherit mode-line))))
  '(mode-line-buffer-id-inactive ((t (:inherit mode-line-inactive)))))
 
@@ -581,7 +590,12 @@ by using nxml's indentation rules."
         try-expand-whole-kill
         ))
 
-(setq vc-handled-backends (quote (Git)))
+;(setq vc-handled-backends (quote (Git)))
+;; speed up save-buffer function, skip vc operations
+(setq vc-handled-backends nil)
+(defun vc-after-save ())
+(defun vc-before-save ())
+
 
 (if (string= system-type "windows-nt")
     (load-file "~/.emacs.d/win.el")
@@ -594,6 +608,7 @@ by using nxml's indentation rules."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ag-ignore-list (quote ("*\\~")))
  '(c-default-style
    (quote
     ((c-mode . "stroustrup")
@@ -602,6 +617,11 @@ by using nxml's indentation rules."
      (other . "gnu"))))
  '(c-macro-prompt-flag nil)
  '(c-macro-shrink-window-flag t)
+ '(clean-buffer-list-delay-general 14)
+ '(clean-buffer-list-kill-regexps (quote ("\\`\\*Man " "\\`\\*ag")))
+ '(custom-safe-themes
+   (quote
+    ("cb39485fd94dabefc5f2b729b963cbd0bac9461000c57eae454131ed4954a8ac" default)))
  '(default-input-method "chinese-py-punct")
  '(diff-switches "-u")
  '(diredp-hide-details-initially-flag nil)
@@ -626,11 +646,12 @@ by using nxml's indentation rules."
       (levels . "SLF4J")
       (timestamp)
       (aliases)))))
+ '(midnight-mode t)
  '(nxml-child-indent 4)
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
    (quote
-    (indent-tools highlight-indentation moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme browse-kill-ring beacon batch-mode auto-complete)))
+    (lua-mode indent-tools highlight-indentation moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme-modern browse-kill-ring beacon batch-mode auto-complete)))
  '(powerline-display-hud nil)
  '(select-enable-clipboard t)
  '(show-paren-mode t nil (paren))
