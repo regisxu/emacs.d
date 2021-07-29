@@ -529,7 +529,10 @@ by using nxml's indentation rules."
   :ensure t
   :config
   (set-face-attribute 'mode-line nil :box nil)
-  (powerline-default-theme))
+  (powerline-default-theme)
+  (setq powerline-height 18))
+
+;;(setq powerline-height (round (/ (frame-char-height) 3)))
 
 (use-package yaml-mode
   :ensure t
