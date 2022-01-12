@@ -1,3 +1,4 @@
+(setq package-check-signature nil)
 ;;-----------------------------start my environment----------------------------------
 
 
@@ -5,7 +6,7 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
-(package-initialize)
+;(package-initialize)
 
 (load-file "~/.emacs.d/install.el")
 
@@ -270,8 +271,8 @@ by using nxml's indentation rules."
   :mode (("\\.html\\'" . web-mode)
          ("\\.js\\'" . web-mode)))
 
-(use-package jsx-mode
-  :ensure t)
+;; (use-package jsx-mode
+;;   :ensure t)
 
 (use-package markdown-mode
   :ensure t
@@ -529,8 +530,9 @@ by using nxml's indentation rules."
   :ensure t
   :config
   (set-face-attribute 'mode-line nil :box nil)
-  (powerline-default-theme)
-  (setq powerline-height 18))
+  (powerline-default-theme))
+
+;  (setq powerline-height 18))
 
 ;;(setq powerline-height (round (/ (frame-char-height) 3)))
 
@@ -624,57 +626,52 @@ by using nxml's indentation rules."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ag-ignore-list (quote ("*\\~")))
+ '(ag-ignore-list '("*\\~"))
  '(c-default-style
-   (quote
-    ((c-mode . "stroustrup")
+   '((c-mode . "stroustrup")
      (c++-mode . "stroustrup")
      (java-mode . "java")
-     (other . "gnu"))))
+     (other . "gnu")))
  '(c-macro-prompt-flag nil)
  '(c-macro-shrink-window-flag t)
  '(clean-buffer-list-delay-general 14)
- '(clean-buffer-list-kill-regexps (quote ("\\`\\*Man " "\\`\\*ag")))
+ '(clean-buffer-list-kill-regexps '("\\`\\*Man " "\\`\\*ag"))
  '(custom-safe-themes
-   (quote
-    ("cb39485fd94dabefc5f2b729b963cbd0bac9461000c57eae454131ed4954a8ac" default)))
+   '("cb39485fd94dabefc5f2b729b963cbd0bac9461000c57eae454131ed4954a8ac" default))
  '(default-input-method "chinese-py-punct")
  '(diff-switches "-u")
  '(diredp-hide-details-initially-flag nil)
  '(display-buffer-reuse-frames t)
  '(display-time-day-and-date nil)
- '(ediff-split-window-function (quote split-window-horizontally))
- '(ediff-window-setup-function (quote ediff-setup-windows-plain))
+ '(ediff-split-window-function 'split-window-horizontally)
+ '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(fill-column 80)
  '(global-font-lock-mode t nil (font-lock))
- '(gnus-default-charset (quote cn-gb-2312))
+ '(gnus-default-charset 'cn-gb-2312)
  '(grep-find-ignored-files
-   (quote
-    (".#*" "*.o" "*~" "*.bin" "*.bak" "*.obj" "*.map" "*.ico" "*.pif" "*.lnk" "*.a" "*.ln" "*.blg" "*.bbl" "*.dll" "*.drv" "*.vxd" "*.elc" "*.idx" "*.class")))
- '(highlight-indent-guides-method (quote column))
- '(highlight-indent-guides-responsive (quote stack))
+   '(".#*" "*.o" "*~" "*.bin" "*.bak" "*.obj" "*.map" "*.ico" "*.pif" "*.lnk" "*.a" "*.ln" "*.blg" "*.bbl" "*.dll" "*.drv" "*.vxd" "*.elc" "*.idx" "*.class"))
+ '(highlight-indent-guides-method 'column)
+ '(highlight-indent-guides-responsive 'stack)
  '(ido-auto-merge-work-directories-length -1)
  '(indent-tabs-mode nil)
  '(js-indent-level 2)
  '(line-number-display-limit nil)
  '(logview-additional-submodes
-   (quote
-    (("stubhub"
+   '(("stubhub"
       (format . "TIMESTAMP [NAME] priority=LEVEL THREAD thread=THREAD ")
       (levels . "SLF4J")
       (timestamp)
-      (aliases)))))
+      (aliases))))
  '(midnight-mode t)
  '(nxml-child-indent 4)
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
-   (quote
-    (highlight-indent-guides lua-mode indent-tools highlight-indentation moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme-modern browse-kill-ring beacon batch-mode auto-complete)))
+   '(powershell highlight-indent-guides lua-mode indent-tools highlight-indentation moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme-modern browse-kill-ring beacon batch-mode auto-complete))
  '(powerline-display-hud nil)
  '(select-enable-clipboard t)
  '(show-paren-mode t nil (paren))
  '(tab-width 4)
  '(transient-mark-mode t)
- '(warning-suppress-types (quote ((\(undo\ discard-info\)) nil))))
+ '(warning-suppress-types '((\(undo\ discard-info\)) nil)))
 
 

@@ -2,29 +2,33 @@
 (add-to-list 'default-frame-alist
              '(font . "Bitstream Vera Sans Mono-20"))
 
+(set-frame-font "Bitstream Vera Sans Mono-20")
+(w32-send-sys-command #xf030)
+
 (use-package color-theme-modern
   :ensure t
   :init
-  (load-theme 'gnome2 t t))
+  (load-theme 'gnome2 t t)
+  (enable-theme 'gnome2))
 
 (setq auto-revert-use-notify nil)
 
-(add-hook 'after-make-frame-functions
-          (lambda (frame)
-            (select-frame frame)
-            (add-to-list 'default-frame-alist
-             '(font . "Bitstream Vera Sans Mono-20"))
-            ;; maximizing window
-            (w32-send-sys-command #xf030)))
+;; (add-hook 'after-make-frame-functions
+;;           (lambda (frame)
+;;             (select-frame frame)
+;;             (add-to-list 'default-frame-alist
+;;              '(font . "Bitstream Vera Sans Mono-20"))
+;;             ;; maximizing window
+;;             (w32-send-sys-command #xf030)))
 
 ;; start emacs server
 (server-start)
 
 (setq dired-listing-switches "-lha")
 
-(use-package batch-mode
-  :ensure t
-  :mode ("\\.[bB][aA][tT]$" "\\.[cC][mM][dD]$"))
+;; (use-package batch-mode
+;;   :ensure t
+;;   :mode ("\\.[bB][aA][tT]$" "\\.[cC][mM][dD]$"))
 
 (setq tramp-default-method "plink")
 
