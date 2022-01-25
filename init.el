@@ -662,6 +662,7 @@ by using nxml's indentation rules."
       (levels . "SLF4J")
       (timestamp)
       (aliases))))
+ '(make-backup-files nil)
  '(midnight-mode t)
  '(nxml-child-indent 4)
  '(nxml-slash-auto-complete-flag t)
