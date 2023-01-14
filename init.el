@@ -428,13 +428,13 @@ by using nxml's indentation rules."
 (prefer-coding-system 'utf-8-unix)
 
 ;; load dired+
-(use-package dired+
-  :init
-  (add-hook 'dired-load-hook
-            (lambda ()
-              (load "dired+")
-              ;; Set dired+ global variables here.
-              )))
+;; (use-package dired+
+;;   :init
+;;   (add-hook 'dired-load-hook
+;;             (lambda ()
+;;               (load "dired+")
+;;               ;; Set dired+ global variables here.
+;;               )))
 
 (use-package dockerfile-mode
   :ensure t)
