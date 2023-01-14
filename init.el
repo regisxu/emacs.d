@@ -239,8 +239,7 @@ by using nxml's indentation rules."
                                (hs-minor-mode)
                                (define-key nxml-mode-map (kbd "C-c C-f")
                                  'hs-toggle-hiding)))
-  (add-hook 'json-mode-hook '(lambda()
-                               (define-key json-mode-map (kbd "C-c C-f") 'hs-toggle-hiding)))
+  (add-hook 'json-mode-hook 'hs-minor-mode)
   (add-hook 'c-mode-common-hook   'hs-minor-mode)
   (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
   (add-hook 'java-mode-hook       'hs-minor-mode)
@@ -257,10 +256,19 @@ by using nxml's indentation rules."
   (interactive)
   (jsons-print-path-jq))
 
+(defun my-json-mode-beautify ()
+  "format json in region or the whole buffer"
+  (interactive)
+    (unless (use-region-p)
+      (mark-whole-buffer))
+    (json-pretty-print (region-beginning) (region-end)))
+
 (use-package json-mode
   :ensure t
   :bind (:map json-mode-map
-              ("C-c C-p" . my-json-print-path)))
+              ("C-c C-p" . my-json-print-path)
+              ("C-S-f" . my-json-mode-beautify)
+              ("C-c C-f" . hs-toggle-hiding)))
 
 (use-package web-mode
   :ensure t
@@ -547,7 +555,8 @@ by using nxml's indentation rules."
   (add-hook 'yaml-mode-hook
             'highlight-indent-guides-mode)
   (add-hook 'json-mode-hook
-            'highlight-indent-guides-mode))
+            'highlight-indent-guides-mode)
+  (highlight-indent-guides-auto-set-faces))
 
 ;; sometime vc-refresh-state is very slow
 (remove-hook 'find-file-hooks 'vc-refresh-state)
