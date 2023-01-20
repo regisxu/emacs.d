@@ -12,6 +12,8 @@
 
 (global-set-key [delete] 'delete-char)
 (global-set-key [kp-delete] 'delete-char)
+(global-set-key [home] 'move-beginning-of-line)
+(global-set-key [end] 'move-end-of-line)
 (global-set-key (kbd "C-x C-g") 'goto-line)
 (global-set-key (kbd "C-c C-c") 'comment-dwim)
 
@@ -226,7 +228,9 @@ by using nxml's indentation rules."
 
 (use-package hideshow
   :ensure t
-  :bind ("C-c C-f" . hs-toggle-hiding)
+  :bind
+  ("C-c C-f" . hs-toggle-hiding)
+  ("C-c C-l" . hs-hide-level)
   :config
   (add-hook 'nxml-mode-hook '(lambda()
                                (add-to-list 'hs-special-modes-alist
@@ -328,7 +332,7 @@ by using nxml's indentation rules."
        'shell-command-sentinel)))
 
   (defun my-build-curl-args (method url headers entity)
-    (let ((command (list "--compressed" "-k" "-i" "-S" "-s"))
+    (let ((command (list "--compressed" "-k" "-i" "-S" "-s" "--no-styled-output"))
           (data (replace-regexp-in-string "\\`[ \t\n]*" "" (replace-regexp-in-string "[ \t\n]*\\'" "" entity))))
       (add-to-list 'command "-X" t)
       (add-to-list 'command method t)
