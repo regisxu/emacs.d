@@ -38,6 +38,12 @@
                               (move-end-of-line 1)
                               (newline)
                               (indent-according-to-mode)))
+(defun my-copy-formated-json (begin end)
+  (interactive "r")
+  (shell-command-on-region begin end "jq --sort-keys ." "*json-format*")
+  (with-current-buffer "*json-format*"
+    (kill-new (buffer-string))
+    (json-mode)))
 
 (defun my-shell-command-on-file ()
   "Run shell command on current file"
@@ -249,7 +255,8 @@ by using nxml's indentation rules."
   (add-hook 'java-mode-hook       'hs-minor-mode)
   (add-hook 'lisp-mode-hook       'hs-minor-mode)
   (add-hook 'perl-mode-hook       'hs-minor-mode)
-  (add-hook 'js-mode-hook         'hs-minor-mode))
+  (add-hook 'js-mode-hook         'hs-minor-mode)
+  (add-hook 'restclient-mode-hook 'hs-minor-mode))
 
 ;; hide-lines mode
 (use-package hide-lines
