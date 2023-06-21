@@ -232,6 +232,14 @@ by using nxml's indentation rules."
   (interactive)
   (set-buffer-file-coding-system 'unix 't))
 
+(use-package ts-fold
+  :load-path "~/.emacs.d/ts-fold"
+  :bind
+  ("C-c C-f" . ts-fold-toggle))
+
+(use-package ts-fold-indicators
+   :load-path "~/.emacs.d/ts-fold")
+
 (use-package hideshow
   :ensure t
   :bind
@@ -687,7 +695,7 @@ by using nxml's indentation rules."
  '(nxml-child-indent 4)
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
-   '(powershell highlight-indent-guides lua-mode indent-tools highlight-indentation moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme-modern browse-kill-ring beacon batch-mode auto-complete))
+   '(fringe-helper tree-sitter-langs tree-sitter powershell highlight-indent-guides lua-mode indent-tools highlight-indentation moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme-modern browse-kill-ring beacon batch-mode auto-complete))
  '(powerline-display-hud nil)
  '(select-enable-clipboard t)
  '(show-paren-mode t nil (paren))

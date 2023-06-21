@@ -8,6 +8,9 @@
 
 (package-initialize)
 
+;; You can use it to (re)install packages on other machines
+;; by running ‘package-install-selected-packages’.
+
 ;; epla managed packages
 (setq my-epla-packages
       '(use-package))
