@@ -10,6 +10,8 @@
 
 (load-file "~/.emacs.d/install.el")
 
+(require 'use-package)
+
 (global-set-key [delete] 'delete-char)
 (global-set-key [kp-delete] 'delete-char)
 (global-set-key [home] 'move-beginning-of-line)
@@ -661,6 +663,7 @@ by using nxml's indentation rules."
  '(custom-safe-themes
    '("cb39485fd94dabefc5f2b729b963cbd0bac9461000c57eae454131ed4954a8ac" default))
  '(default-input-method "chinese-py-punct")
+ '(desktop-load-locked-desktop 'check-pid)
  '(diff-switches "-u")
  '(diredp-hide-details-initially-flag nil)
  '(display-buffer-reuse-frames t)

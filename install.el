@@ -9,8 +9,8 @@
 (package-initialize)
 
 ;; epla managed packages
-(setq my-epla-packages
-      '(use-package))
+;; (setq my-epla-packages
+;;       '(use-package))
 
 (defun my-install-epla-packages ()
   (interactive)
