@@ -168,6 +168,24 @@ If p is negative, move up, otherwise, move down."
           (if this-win-2nd (other-window 1))))))
 (global-set-key (kbd "C-=") 'toggle-window-split)
 
+(setq treesit-language-source-alist
+   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+     (cmake "https://github.com/uyha/tree-sitter-cmake")
+     (css "https://github.com/tree-sitter/tree-sitter-css")
+     (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+     (go "https://github.com/tree-sitter/tree-sitter-go")
+     (html "https://github.com/tree-sitter/tree-sitter-html")
+     (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+     (json "https://github.com/tree-sitter/tree-sitter-json")
+     (make "https://github.com/alemuller/tree-sitter-make")
+     (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+     (python "https://github.com/tree-sitter/tree-sitter-python")
+     (toml "https://github.com/tree-sitter/tree-sitter-toml")
+     (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+     (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+(mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
+
 (defun my-pretty-print-xml-region (begin end)
   "Pretty format XML markup in region. You need to have nxml-mode
 http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do
@@ -261,6 +279,14 @@ by using nxml's indentation rules."
   (add-hook 'perl-mode-hook       'hs-minor-mode)
   (add-hook 'js-mode-hook         'hs-minor-mode)
   (add-hook 'restclient-mode-hook 'hs-minor-mode))
+
+(use-package ts-fold
+  :load-path "~/.emacs.d/ts-fold"
+  :bind
+  ("C-c C-f" . ts-fold-toggle))
+
+(use-package ts-fold-indicators
+   :load-path "~/.emacs.d/ts-fold")
 
 ;; hide-lines mode
 (use-package hide-lines
