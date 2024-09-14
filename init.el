@@ -20,6 +20,10 @@
 (global-set-key (kbd "C-c C-c") 'comment-dwim)
 
 
+;; set key for scroll-other-window
+(global-set-key (kbd "M-<up>") '(lambda() (interactive) (scroll-other-window -1)))
+(global-set-key (kbd "M-<down>") '(lambda() (interactive) (scroll-other-window 1)))
+
 ;; set key for other-windows
 (global-set-key [f1] 'other-window)
 
@@ -612,14 +616,13 @@ by using nxml's indentation rules."
       (define-key outline-minor-mode-map [M-down] 'outline-move-subtree-down)
       (define-key outline-minor-mode-map [M-up] 'outline-move-subtree-up))))
 
-(use-package highlight-indent-guides
-  :ensure t
-  :config
-  (add-hook 'yaml-mode-hook
-            'highlight-indent-guides-mode)
-  (add-hook 'json-mode-hook
-            'highlight-indent-guides-mode)
-  (highlight-indent-guides-auto-set-faces))
+;; (use-package highlight-indent-guides
+;;   :ensure t
+;;   :config
+;;   (add-hook 'yaml-mode-hook
+;;             'highlight-indent-guides-mode)
+;;   ;(add-hook 'json-mode-hook 'highlight-indent-guides-mode)
+;;   (highlight-indent-guides-auto-set-faces))
 
 ;; sometime vc-refresh-state is very slow
 (remove-hook 'find-file-hooks 'vc-refresh-state)
@@ -634,6 +637,8 @@ by using nxml's indentation rules."
  '(diff-header ((t (:background "grey45"))))
  '(diff-hunk-header ((t (:inherit diff-header))))
  '(diff-index ((t (:inherit diff-file-header))))
+ '(diff-refine-added ((t (:foreground "Green2"))))
+ '(diff-refine-removed ((t (:foreground "IndianRed2"))))
  '(diff-removed ((t (:foreground "IndianRed2"))))
  '(diredp-deletion ((t (:inherit font-lock-warning-face))))
  '(diredp-deletion-file-name ((t (:inherit font-lock-warning-face))))
@@ -723,6 +728,7 @@ by using nxml's indentation rules."
  '(gnus-default-charset 'cn-gb-2312)
  '(grep-find-ignored-files
    '(".#*" "*.o" "*~" "*.bin" "*.bak" "*.obj" "*.map" "*.ico" "*.pif" "*.lnk" "*.a" "*.ln" "*.blg" "*.bbl" "*.dll" "*.drv" "*.vxd" "*.elc" "*.idx" "*.class"))
+ '(highlight-indent-guides-auto-enabled nil)
  '(highlight-indent-guides-method 'column)
  '(highlight-indent-guides-responsive 'stack)
  '(ido-auto-merge-work-directories-length -1)
