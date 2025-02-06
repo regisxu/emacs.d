@@ -365,6 +365,15 @@ by using nxml's indentation rules."
             (concat (car args) " " (my-curl-args-to-string (cdr args)))
           (concat "'" (car args) "'" " " (my-curl-args-to-string (cdr args)))))))
 
+(use-package vlf
+  :ensure t
+  :init (require 'vlf-setup)
+  :config (progn
+            (add-hook 'vlf-mode-hook
+                      (lambda ()
+                        (add-hook 'after-change-major-mode-hook
+                                  (lambda () (font-lock-mode 0))
+                                  nil t)))))
 ;;-------------------------------------customize option--------------------------------
 
 
@@ -746,7 +755,7 @@ by using nxml's indentation rules."
  '(nxml-child-indent 4)
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
-   '(powershell highlight-indent-guides lua-mode indent-tools highlight-indentation moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme-modern browse-kill-ring beacon batch-mode auto-complete))
+   '(vlf powershell highlight-indent-guides lua-mode indent-tools highlight-indentation moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme-modern browse-kill-ring beacon batch-mode auto-complete))
  '(powerline-display-hud nil)
  '(select-enable-clipboard t)
  '(show-paren-mode t nil (paren))
