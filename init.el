@@ -374,6 +374,20 @@ by using nxml's indentation rules."
                         (add-hook 'after-change-major-mode-hook
                                   (lambda () (font-lock-mode 0))
                                   nil t)))))
+
+(use-package gptel
+  :ensure t
+  :config
+  (setq gptel-model 'deepseek-chat
+        gptel-backend
+        (gptel-make-openai "DeepSeek"
+          :host "api.deepseek.com"
+          :endpoint "/chat/completions"
+          :stream t
+          :key "sk-2f60dbf1e17542bebdeb189ce844d88e"
+          :models '(deepseek-chat deepseek-coder))))
+
+
 ;;-------------------------------------customize option--------------------------------
 
 
@@ -755,7 +769,7 @@ by using nxml's indentation rules."
  '(nxml-child-indent 4)
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
-   '(vlf powershell highlight-indent-guides lua-mode indent-tools highlight-indentation moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme-modern browse-kill-ring beacon batch-mode auto-complete))
+   '(gptel emacs-everywhere vlf powershell highlight-indent-guides lua-mode indent-tools highlight-indentation moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme-modern browse-kill-ring beacon batch-mode auto-complete))
  '(powerline-display-hud nil)
  '(select-enable-clipboard t)
  '(show-paren-mode t nil (paren))
