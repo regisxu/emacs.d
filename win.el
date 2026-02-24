@@ -3,9 +3,16 @@
 ;;              '(font . "Bitstream Vera Sans Mono-20"))
 
 (set-frame-font "Bitstream Vera Sans Mono-16")
+
+;; 只设置中文字体为 Sarasa Mono SC
+(dolist (charset '(han cjk-misc kana bopomofo))
+  (set-fontset-font t charset
+                    (font-spec :family "Sarasa Mono SC")))
+
 (set-fontset-font t 'emoji
                   (font-spec :family "Segoe UI Emoji")
                   nil 'prepend)
+
 (w32-send-sys-command #xf030)
 
 (use-package color-theme-modern
