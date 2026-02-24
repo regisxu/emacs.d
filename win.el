@@ -1,8 +1,11 @@
 ;; Font settings
-(add-to-list 'default-frame-alist
-             '(font . "Bitstream Vera Sans Mono-20"))
+;; (add-to-list 'default-frame-alist
+;;              '(font . "Bitstream Vera Sans Mono-20"))
 
-(set-frame-font "Bitstream Vera Sans Mono-20")
+(set-frame-font "Bitstream Vera Sans Mono-16")
+(set-fontset-font t 'emoji
+                  (font-spec :family "Segoe UI Emoji")
+                  nil 'prepend)
 (w32-send-sys-command #xf030)
 
 (use-package color-theme-modern
