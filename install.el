@@ -1,39 +1,25 @@
-(setq load-path (append
-                 '("~/.emacs.d/site-lisp/")
-                 load-path))
+;;; install.el --- Package installation and initialization  -*- lexical-binding: t -*-
 
+;;; Commentary:
+;; This file handles Emacs package initialization and installation.
+;; It configures package archives and provides functions for managing packages.
+;;
+;;; Code:
+
+;; Add site-lisp to load path
+(add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
+
+;; Initialize package system
 (require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
 
+;; Disable package signature check (optional, for compatibility)
+(setq package-check-signature nil)
+
+;; Add MELPA repository
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+;; Initialize packages (standard initialization, no network calls here)
 (package-initialize)
 
-;; epla managed packages
-;; (setq my-epla-packages
-;;       '(use-package))
-
-(defun my-install-epla-packages ()
-  (interactive)
-  (dolist (p my-epla-packages)
-    (when (not (package-installed-p p))
-      (message "Installing package %s" p)
-      (package-install p))))
-
-(require 'use-package)
-
-;; old install way
-;; (setq my-packages-from-emacswiki '("browse-kill-ring.el" "htmlize.el" "dired+.el" "batch-mode.el"))
-;; (setq my-site-lisp-location "~/.emacs.d/site-lisp/")
-
-;; (defun my-install-package (url file)
-;;   (when (not (file-exists-p file))
-;;     (message "Download package %s" url)
-;;     (url-copy-file url file)
-;;     (byte-compile-file file)))
-
-;; ;; install packages from emacswiki
-;; (mapcar (lambda (file-name)
-;;           (my-install-package (concat "http://www.emacswiki.org/emacs/download/" file-name)
-;;                               (concat my-site-lisp-location file-name)))
-;;         my-packages-from-emacswiki)
-
+(provide 'my-install)
+;;; install.el ends here
