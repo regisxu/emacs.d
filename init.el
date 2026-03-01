@@ -630,13 +630,15 @@ by using nxml's indentation rules."
       (define-key outline-minor-mode-map [M-down] 'outline-move-subtree-down)
       (define-key outline-minor-mode-map [M-up] 'outline-move-subtree-up))))
 
-;; (use-package highlight-indent-guides
-;;   :ensure t
-;;   :config
-;;   (add-hook 'yaml-mode-hook
-;;             'highlight-indent-guides-mode)
-;;   ;(add-hook 'json-mode-hook 'highlight-indent-guides-mode)
-;;   (highlight-indent-guides-auto-set-faces))
+(use-package highlight-indent-guides
+  :ensure t
+  :hook (yaml-mode . highlight-indent-guides-mode)
+  :custom
+  (highlight-indent-guides-auto-enabled t)  ; 启用自动颜色
+  (highlight-indent-guides-method 'column)
+  (highlight-indent-guides-responsive 'stack)
+  :config
+  (highlight-indent-guides-auto-set-faces))
 
 ;; sometime vc-refresh-state is very slow
 (remove-hook 'find-file-hooks 'vc-refresh-state)
@@ -677,7 +679,9 @@ by using nxml's indentation rules."
  '(markdown-code-face ((t (:inherit nil))))
  '(markdown-inline-code-face ((t (:inherit font-lock-constant-face))))
  '(mode-line-buffer-id ((t (:inherit mode-line))))
- '(mode-line-buffer-id-inactive ((t (:inherit mode-line-inactive)))))
+ '(mode-line-buffer-id-inactive ((t (:inherit mode-line-inactive))))
+ '(whitespace-indentation ((t (:background "#3d5667196719" :foreground "firebrick"))))
+ '(whitespace-trailing ((t (:background "#3d5667196719" :foreground "yellow" :weight bold)))))
 
 ;;--------------------configure program environment------------------------------------
 
@@ -719,9 +723,7 @@ by using nxml's indentation rules."
  ;; If there is more than one, they won't work right.
  '(ag-ignore-list '("*\\~"))
  '(c-default-style
-   '((c-mode . "stroustrup")
-     (c++-mode . "stroustrup")
-     (java-mode . "java")
+   '((c-mode . "stroustrup") (c++-mode . "stroustrup") (java-mode . "java")
      (other . "gnu")))
  '(c-macro-prompt-flag nil)
  '(c-macro-shrink-window-flag t)
@@ -741,26 +743,26 @@ by using nxml's indentation rules."
  '(global-font-lock-mode t nil (font-lock))
  '(gnus-default-charset 'cn-gb-2312)
  '(grep-find-ignored-files
-   '(".#*" "*.o" "*~" "*.bin" "*.bak" "*.obj" "*.map" "*.ico" "*.pif" "*.lnk" "*.a" "*.ln" "*.blg" "*.bbl" "*.dll" "*.drv" "*.vxd" "*.elc" "*.idx" "*.class"))
- '(highlight-indent-guides-auto-enabled nil)
- '(highlight-indent-guides-method 'column)
- '(highlight-indent-guides-responsive 'stack)
+   '(".#*" "*.o" "*~" "*.bin" "*.bak" "*.obj" "*.map" "*.ico" "*.pif" "*.lnk" "*.a"
+     "*.ln" "*.blg" "*.bbl" "*.dll" "*.drv" "*.vxd" "*.elc" "*.idx" "*.class"))
  '(ido-auto-merge-work-directories-length -1)
  '(indent-tabs-mode nil)
  '(js-indent-level 2)
  '(line-number-display-limit nil)
  '(logview-additional-submodes
-   '(("stubhub"
-      (format . "TIMESTAMP [NAME] priority=LEVEL THREAD thread=THREAD ")
-      (levels . "SLF4J")
-      (timestamp)
-      (aliases))))
+   '(("stubhub" (format . "TIMESTAMP [NAME] priority=LEVEL THREAD thread=THREAD ")
+      (levels . "SLF4J") (timestamp) (aliases))))
  '(make-backup-files nil)
  '(midnight-mode t)
  '(nxml-child-indent 4)
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
-   '(gptel emacs-everywhere vlf powershell highlight-indent-guides lua-mode indent-tools highlight-indentation moe-theme powerline ag swiper origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode use-package smex restclient markdown-mode logview json-mode htmlize hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode color-theme-modern browse-kill-ring beacon batch-mode auto-complete))
+   '(gptel emacs-everywhere vlf powershell highlight-indent-guides lua-mode
+           indent-tools highlight-indentation moe-theme powerline ag swiper
+           origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode
+           use-package smex restclient markdown-mode logview json-mode htmlize
+           hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode
+           color-theme-modern browse-kill-ring beacon batch-mode auto-complete))
  '(powerline-display-hud nil)
  '(select-enable-clipboard t)
  '(show-paren-mode t nil (paren))
