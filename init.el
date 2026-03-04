@@ -551,10 +551,28 @@ by using nxml's indentation rules."
   (setq smex-save-file "~/.emacs.d/.smex-items")
   (setq smex-history-length 50))
 
-(use-package auto-complete
+(use-package company
   :ensure t
+  :hook (after-init . global-company-mode)
   :config
-  (ac-config-default))
+  (setq company-idle-delay 0.2)          ; 延迟 0.2 秒显示
+  (setq company-minimum-prefix-length 1) ; 至少输入 1 个字符
+  (setq company-tooltip-align-annotations t) ; 对齐注释
+  (setq company-show-numbers t)          ; 显示数字快速选择
+  (setq company-backends
+      '(;; 第一组：智能补全（任意一个成功即可）
+        (company-capf           ; LSP/模式原生补全
+         company-keywords)      ; 关键字
+        ;; 第二组：文件路径（单独一组，避免干扰）
+        company-files
+        ;; 第三组：保底文本补全
+        (company-dabbrev-code
+         company-dabbrev))))
+
+(use-package company-quickhelp
+  :ensure t
+  :hook (company-mode . company-quickhelp-mode)
+  :custom (company-quickhelp-delay nil))  ; 禁用自动弹出
 
 (use-package logview
   :ensure t)
@@ -757,12 +775,13 @@ by using nxml's indentation rules."
  '(nxml-child-indent 4)
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
-   '(gptel emacs-everywhere vlf powershell highlight-indent-guides lua-mode
-           indent-tools highlight-indentation moe-theme powerline ag swiper
-           origami yang-mode yaml-mode go-mode jsx-mode ztree web-mode
-           use-package smex restclient markdown-mode logview json-mode htmlize
-           hide-lines dockerfile-mode docker-tramp docker dired+ csv-mode
-           color-theme-modern browse-kill-ring beacon batch-mode auto-complete))
+   '(ag batch-mode beacon browse-kill-ring color-theme-modern company
+        company-quickhelp company-shell csv-mode dired+ docker docker-tramp
+        dockerfile-mode emacs-everywhere go-mode gptel hide-lines
+        highlight-indent-guides highlight-indentation htmlize indent-tools
+        json-mode jsx-mode logview lua-mode markdown-mode moe-theme origami
+        powerline powershell restclient smex swiper use-package vlf web-mode
+        yaml-mode yang-mode ztree))
  '(powerline-display-hud nil)
  '(select-enable-clipboard t)
  '(show-paren-mode t nil (paren))
