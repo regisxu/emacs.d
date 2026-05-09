@@ -3,6 +3,10 @@
 ;; Load package initialization (provides 'my-install)
 (require 'my-install "~/.emacs.d/install.el")
 
+(let ((msys-path "c:/regis/apps/msys64/mingw64/bin"))
+  (setenv "PATH" (concat msys-path ";" (getenv "PATH")))
+  (add-to-list 'exec-path msys-path))
+
 (global-set-key [delete] 'delete-char)
 (global-set-key [kp-delete] 'delete-char)
 (global-set-key [home] 'move-beginning-of-line)
@@ -577,10 +581,50 @@ by using nxml's indentation rules."
 (use-package logview
   :ensure t)
 
-(use-package ag
+(use-package rg
   :ensure t
+  ;; 可选：如果你用 helm 做补全
+  ;; :after helm
   :config
-  (setq ag-highlight-search t))
+  (setq rg-executable "c:/regis/apps/msys64/mingw64/bin/rg.exe")
+
+  ;; 启用默认快捷键（前缀 C-c s）
+  (rg-enable-default-bindings)
+  
+  ;; 或者改用 magit 风格的 transient 菜单
+  ;; (rg-enable-menu)
+  
+  ;; 自定义 rg 参数
+  (setq rg-arguments '("--hidden"          ;; 搜索隐藏文件
+                       "--glob=!.git/"     ;; 但忽略 .git
+                       "--smart-case"))    ;; 智能大小写
+  
+  ;; 自定义结果缓冲外观
+  (setq rg-show-columns t)      ;; 显示列号
+  (setq rg-group-result t)      ;; 按文件分组结果
+
+  ;; 每次搜索使用新 buffer，名字为 *rg pattern:$pattern $timestamp*
+  (defvar my-rg-current-pattern nil)
+  (defvar my-rg-buffer-name-cache nil)
+
+  (defun my-rg-buffer-name ()
+    "根据当前搜索词和时间戳生成 rg buffer 名"
+    (unless my-rg-buffer-name-cache
+      (setq my-rg-buffer-name-cache
+            (if my-rg-current-pattern
+                (let ((sanitized (replace-regexp-in-string "[*/:?\"<>|[:space:]\n]" "_" my-rg-current-pattern))
+                      (timestamp (format-time-string "%H:%M:%S")))
+                  (format "rg pattern:%s %s" sanitized timestamp))
+              "rg")))
+    my-rg-buffer-name-cache)
+
+  (advice-add 'rg-run :around
+              (lambda (orig-fun pattern files dir &optional literal confirm flags)
+                (setq my-rg-current-pattern pattern)
+                (setq my-rg-buffer-name-cache nil)  ; 重置缓存，确保新搜索生成新时间戳
+                (funcall orig-fun pattern files dir literal confirm flags)))
+
+  (setq rg-buffer-name #'my-rg-buffer-name))
 
 (use-package swiper
   :ensure t)
@@ -780,7 +824,7 @@ by using nxml's indentation rules."
         dockerfile-mode emacs-everywhere go-mode gptel hide-lines
         highlight-indent-guides highlight-indentation htmlize indent-tools
         json-mode jsx-mode logview lua-mode markdown-mode moe-theme origami
-        powerline powershell restclient smex swiper use-package vlf web-mode
+        powerline powershell restclient rg smex swiper use-package vlf web-mode
         yaml-mode yang-mode ztree))
  '(powerline-display-hud nil)
  '(select-enable-clipboard t)
